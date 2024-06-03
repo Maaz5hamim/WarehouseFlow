@@ -1,0 +1,94 @@
+[2024-05-13T22:19:35.325+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-13T22:19:35.396+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [queued]>
+[2024-05-13T22:19:35.421+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [queued]>
+[2024-05-13T22:19:35.422+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-05-13T22:19:35.486+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): fetch_records> on 2024-05-12 00:00:00+00:00
+[2024-05-13T22:19:35.492+0000] {standard_task_runner.py:63} INFO - Started process 917 to run task
+[2024-05-13T22:19:35.496+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'fetch_records', 'scheduled__2024-05-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpyspaoq9m']
+[2024-05-13T22:19:35.499+0000] {standard_task_runner.py:91} INFO - Job 6: Subtask fetch_records
+[2024-05-13T22:19:35.770+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [running]> on host 69f96770bb54
+[2024-05-13T22:19:36.150+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='fetch_records' AIRFLOW_CTX_EXECUTION_DATE='2024-05-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-05-12T00:00:00+00:00'
+[2024-05-13T22:19:36.152+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-13T22:19:36.555+0000] {base.py:84} INFO - Using connection ID 'production_db' for task execution.
+[2024-05-13T22:19:36.608+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-13T22:19:36.609+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/extract_dag.py", line 11, in fetch_records
+    connection = mysql_hook.get_conn()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/mysql/hooks/mysql.py", line 195, in get_conn
+    return MySQLdb.connect(**conn_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 195, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)")
+[2024-05-13T22:19:36.643+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=extract_dag, task_id=fetch_records, run_id=scheduled__2024-05-12T00:00:00+00:00, execution_date=20240512T000000, start_date=20240513T221935, end_date=20240513T221936
+[2024-05-13T22:19:36.702+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 6 for task fetch_records ((2002, "Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)"); 917)
+[2024-05-13T22:19:36.738+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-13T22:19:36.822+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-13T22:19:36.832+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-05-13T22:33:04.608+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-13T22:33:04.696+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [queued]>
+[2024-05-13T22:33:04.726+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [queued]>
+[2024-05-13T22:33:04.727+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-13T22:33:04.777+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): fetch_records> on 2024-05-12 00:00:00+00:00
+[2024-05-13T22:33:04.783+0000] {standard_task_runner.py:63} INFO - Started process 984 to run task
+[2024-05-13T22:33:04.786+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'fetch_records', 'scheduled__2024-05-12T00:00:00+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmp7w3vconr']
+[2024-05-13T22:33:04.789+0000] {standard_task_runner.py:91} INFO - Job 9: Subtask fetch_records
+[2024-05-13T22:33:04.898+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.fetch_records scheduled__2024-05-12T00:00:00+00:00 [running]> on host 69f96770bb54
+[2024-05-13T22:33:05.165+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='fetch_records' AIRFLOW_CTX_EXECUTION_DATE='2024-05-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-05-12T00:00:00+00:00'
+[2024-05-13T22:33:05.166+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-13T22:33:05.467+0000] {base.py:84} INFO - Using connection ID 'production_db' for task execution.
+[2024-05-13T22:33:05.758+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-13T22:33:05.762+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/extract_dag.py", line 10, in fetch_records
+    connection = mysql_hook.get_conn()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/mysql/hooks/mysql.py", line 195, in get_conn
+    return MySQLdb.connect(**conn_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 195, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)")
+[2024-05-13T22:33:05.840+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=extract_dag, task_id=fetch_records, run_id=scheduled__2024-05-12T00:00:00+00:00, execution_date=20240512T000000, start_date=20240513T223304, end_date=20240513T223305
+[2024-05-13T22:33:05.959+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 9 for task fetch_records ((2002, "Can't connect to local server through socket '/run/mysqld/mysqld.sock' (2)"); 984)
+[2024-05-13T22:33:06.010+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-13T22:33:06.068+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-13T22:33:06.074+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

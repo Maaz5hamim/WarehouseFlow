@@ -1,0 +1,52 @@
+[2024-05-27T09:11:10.396+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T09:11:10.511+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Product_Dimension manual__2024-05-27T09:10:51.654884+00:00 [queued]>
+[2024-05-27T09:11:10.541+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Product_Dimension manual__2024-05-27T09:10:51.654884+00:00 [queued]>
+[2024-05-27T09:11:10.542+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T09:11:10.618+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Load_Dimensions.Load_Product_Dimension> on 2024-05-27 09:10:51.654884+00:00
+[2024-05-27T09:11:10.626+0000] {standard_task_runner.py:63} INFO - Started process 1227 to run task
+[2024-05-27T09:11:10.629+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'load_dag', 'Load_Dimensions.Load_Product_Dimension', 'manual__2024-05-27T09:10:51.654884+00:00', '--job-id', '174', '--raw', '--subdir', 'DAGS_FOLDER/load_dag.py', '--cfg-path', '/tmp/tmpa65k55o0']
+[2024-05-27T09:11:10.633+0000] {standard_task_runner.py:91} INFO - Job 174: Subtask Load_Dimensions.Load_Product_Dimension
+[2024-05-27T09:11:10.791+0000] {task_command.py:426} INFO - Running <TaskInstance: load_dag.Load_Dimensions.Load_Product_Dimension manual__2024-05-27T09:10:51.654884+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T09:11:11.213+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='load_dag' AIRFLOW_CTX_TASK_ID='Load_Dimensions.Load_Product_Dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T09:10:51.654884+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T09:10:51.654884+00:00'
+[2024-05-27T09:11:11.214+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T09:11:11.260+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO data_warehouse.Product (prod_id, prod_name, prod_description, prod_category, prod_category_description, prod_brand)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);
+[2024-05-27T09:11:11.288+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:11:11.717+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:11:11.956+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO data_warehouse.Product (prod_id, prod_name, prod_description, prod_category, prod_category_description, prod_brand)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);, parameters: None
+[2024-05-27T09:11:12.171+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T09:11:12.172+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.ProgrammingError: (1146, "Table 'staging_area.product_category' doesn't exist")
+[2024-05-27T09:11:12.200+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=load_dag, task_id=Load_Dimensions.Load_Product_Dimension, run_id=manual__2024-05-27T09:10:51.654884+00:00, execution_date=20240527T091051, start_date=20240527T091110, end_date=20240527T091112
+[2024-05-27T09:11:12.256+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 174 for task Load_Dimensions.Load_Product_Dimension ((1146, "Table 'staging_area.product_category' doesn't exist"); 1227)
+[2024-05-27T09:11:12.295+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-27T09:11:12.323+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-27T09:11:12.349+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T09:11:12.378+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,72 @@
+[2024-05-27T09:28:47.497+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T09:28:47.583+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Supplier_Dimension manual__2024-05-27T09:28:08.045683+00:00 [queued]>
+[2024-05-27T09:28:47.618+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Supplier_Dimension manual__2024-05-27T09:28:08.045683+00:00 [queued]>
+[2024-05-27T09:28:47.620+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T09:28:47.713+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Load_Dimensions.Load_Supplier_Dimension> on 2024-05-27 09:28:08.045683+00:00
+[2024-05-27T09:28:47.724+0000] {standard_task_runner.py:63} INFO - Started process 1527 to run task
+[2024-05-27T09:28:47.730+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'load_dag', 'Load_Dimensions.Load_Supplier_Dimension', 'manual__2024-05-27T09:28:08.045683+00:00', '--job-id', '181', '--raw', '--subdir', 'DAGS_FOLDER/load_dag.py', '--cfg-path', '/tmp/tmppk0l05g7']
+[2024-05-27T09:28:47.734+0000] {standard_task_runner.py:91} INFO - Job 181: Subtask Load_Dimensions.Load_Supplier_Dimension
+[2024-05-27T09:28:48.032+0000] {task_command.py:426} INFO - Running <TaskInstance: load_dag.Load_Dimensions.Load_Supplier_Dimension manual__2024-05-27T09:28:08.045683+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T09:28:49.627+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='load_dag' AIRFLOW_CTX_TASK_ID='Load_Dimensions.Load_Supplier_Dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T09:28:08.045683+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T09:28:08.045683+00:00'
+[2024-05-27T09:28:49.633+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T09:28:49.736+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO data_warehouse.Supplier (sup_id, sup_company, sup_contact, sup_phone, sup_email, sup_city, sup_province, sup_country, sup_address)
+SELECT 
+    supplier_id, 
+    company_name, 
+    contact_name, 
+    phone, 
+    email, 
+    city, 
+    province, 
+    country, 
+    address
+FROM Supplier;
+[2024-05-27T09:28:49.865+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:28:51.093+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:28:51.286+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO data_warehouse.Supplier (sup_id, sup_company, sup_contact, sup_phone, sup_email, sup_city, sup_province, sup_country, sup_address)
+SELECT 
+    supplier_id, 
+    company_name, 
+    contact_name, 
+    phone, 
+    email, 
+    city, 
+    province, 
+    country, 
+    address
+FROM Supplier;, parameters: None
+[2024-05-27T09:28:51.301+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T09:28:51.311+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'sup_contact' in 'field list'")
+[2024-05-27T09:28:51.447+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=load_dag, task_id=Load_Dimensions.Load_Supplier_Dimension, run_id=manual__2024-05-27T09:28:08.045683+00:00, execution_date=20240527T092808, start_date=20240527T092847, end_date=20240527T092851
+[2024-05-27T09:28:51.645+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 181 for task Load_Dimensions.Load_Supplier_Dimension ((1054, "Unknown column 'sup_contact' in 'field list'"); 1527)
+[2024-05-27T09:28:51.753+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-27T09:28:51.860+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-27T09:28:51.990+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T09:28:52.065+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

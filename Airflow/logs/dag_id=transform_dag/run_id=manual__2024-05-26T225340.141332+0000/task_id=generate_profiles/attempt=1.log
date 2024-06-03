@@ -1,0 +1,133 @@
+[2024-05-26T22:54:03.746+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-26T22:54:03.863+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-26T22:53:40.141332+00:00 [queued]>
+[2024-05-26T22:54:03.884+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-26T22:53:40.141332+00:00 [queued]>
+[2024-05-26T22:54:03.885+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-26T22:54:03.946+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_profiles> on 2024-05-26 22:53:40.141332+00:00
+[2024-05-26T22:54:03.970+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'transform_dag', 'generate_profiles', 'manual__2024-05-26T22:53:40.141332+00:00', '--job-id', '152', '--raw', '--subdir', 'DAGS_FOLDER/transformation_dag.py', '--cfg-path', '/tmp/tmpy30_gcd2']
+[2024-05-26T22:54:03.975+0000] {standard_task_runner.py:91} INFO - Job 152: Subtask generate_profiles
+[2024-05-26T22:54:03.978+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=993) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-05-26T22:54:03.980+0000] {standard_task_runner.py:63} INFO - Started process 1002 to run task
+[2024-05-26T22:54:04.122+0000] {task_command.py:426} INFO - Running <TaskInstance: transform_dag.generate_profiles manual__2024-05-26T22:53:40.141332+00:00 [running]> on host 3368e0bd61b0
+[2024-05-26T22:54:04.366+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='transform_dag' AIRFLOW_CTX_TASK_ID='generate_profiles' AIRFLOW_CTX_EXECUTION_DATE='2024-05-26T22:53:40.141332+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-26T22:53:40.141332+00:00'
+[2024-05-26T22:54:04.369+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-26T22:54:04.441+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-26T22:54:04.677+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-26T22:54:05.839+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/5 [00:00<?, ?it/s]
+[2024-05-26T22:54:06.244+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/19 [00:00<?, ?it/s]
+[2024-05-26T22:54:06.266+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-26T22:54:06.281+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 369, in __call__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/summary_algorithms.py", line 73, in inner
+    return fn(config, series, summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/summary_algorithms.py", line 90, in inner
+    return fn(config, series, summary)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/describe_date_pandas.py", line 44, in pandas_describe_date_1d
+    "min": pd.Timestamp.to_pydatetime(series.min()),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: descriptor 'to_pydatetime' for 'pandas._libs.tslibs.timestamps._Timestamp' objects doesn't apply to a 'datetime.date' object
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 369, in __call__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 57, in pandas_describe_1d
+    return summarizer.summarize(config, series, dtype=vtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/summarizer.py", line 42, in summarize
+    _, _, summary = self.handle(str(dtype), config, series, {"type": str(dtype)})
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/handler.py", line 62, in handle
+    return op(*args)
+           ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/handler.py", line 21, in func2
+    return f(*res)
+           ^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/handler.py", line 21, in func2
+    return f(*res)
+           ^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/handler.py", line 21, in func2
+    return f(*res)
+           ^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/handler.py", line 17, in func2
+    res = g(*x)
+          ^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 371, in __call__
+    raise DispatchError(f"Function {func.__code__}") from ex
+multimethod.DispatchError: Function <code object inner at 0x7f727805a2e0, file "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/summary_algorithms.py", line 67>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 369, in __call__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 99, in pandas_get_series_descriptions
+    for i, (column, description) in enumerate(
+  File "/usr/local/lib/python3.12/multiprocessing/pool.py", line 873, in next
+    raise value
+  File "/usr/local/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 79, in multiprocess_1d
+    return column, describe_1d(config, series, summarizer, typeset)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 371, in __call__
+    raise DispatchError(f"Function {func.__code__}") from ex
+multimethod.DispatchError: Function <code object pandas_describe_1d at 0x561d55f4b090, file "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 19>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/transformation_dag.py", line 20, in generate_profile
+    profile.to_file(f'/opt/airflow/{table}_profile.html')
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 379, in to_file
+    data = self.to_html()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 496, in to_html
+    return self.html
+           ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 292, in html
+    self._html = self._render_html()
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 409, in _render_html
+    report = self.report
+             ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 286, in report
+    self._report = get_report_structure(self.config, self.description_set)
+                                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/profile_report.py", line 268, in description_set
+    self._description_set = describe_df(
+                            ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/describe.py", line 74, in describe
+    series_description = get_series_descriptions(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/multimethod/__init__.py", line 371, in __call__
+    raise DispatchError(f"Function {func.__code__}") from ex
+multimethod.DispatchError: Function <code object pandas_get_series_descriptions at 0x561d55ee9480, file "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 60>
+[2024-05-26T22:54:06.433+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=transform_dag, task_id=generate_profiles, run_id=manual__2024-05-26T22:53:40.141332+00:00, execution_date=20240526T225340, start_date=20240526T225403, end_date=20240526T225406
+[2024-05-26T22:54:06.497+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 152 for task generate_profiles (Function <code object pandas_get_series_descriptions at 0x561d55ee9480, file "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/summary_pandas.py", line 60>; 1002)
+[2024-05-26T22:54:06.529+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-26T22:54:06.568+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-26T22:54:06.572+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

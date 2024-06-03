@@ -1,0 +1,20 @@
+[2024-05-26T20:37:38.824+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-26T20:37:38.886+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: transform_dag.Clean_Product.extract_data manual__2024-05-26T20:37:27.397533+00:00 [queued]>
+[2024-05-26T20:37:38.915+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: transform_dag.Clean_Product.extract_data manual__2024-05-26T20:37:27.397533+00:00 [queued]>
+[2024-05-26T20:37:38.916+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-26T20:37:39.055+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): Clean_Product.extract_data> on 2024-05-26 20:37:27.397533+00:00
+[2024-05-26T20:37:39.078+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'transform_dag', 'Clean_Product.extract_data', 'manual__2024-05-26T20:37:27.397533+00:00', '--job-id', '120', '--raw', '--subdir', 'DAGS_FOLDER/transformation_dag.py', '--cfg-path', '/tmp/tmpdoux0zy6']
+[2024-05-26T20:37:39.086+0000] {standard_task_runner.py:91} INFO - Job 120: Subtask Clean_Product.extract_data
+[2024-05-26T20:37:39.107+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=3167) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-05-26T20:37:39.111+0000] {standard_task_runner.py:63} INFO - Started process 3172 to run task
+[2024-05-26T20:37:39.720+0000] {task_command.py:426} INFO - Running <TaskInstance: transform_dag.Clean_Product.extract_data manual__2024-05-26T20:37:27.397533+00:00 [running]> on host 2ae322230659
+[2024-05-26T20:37:40.922+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='transform_dag' AIRFLOW_CTX_TASK_ID='Clean_Product.extract_data' AIRFLOW_CTX_EXECUTION_DATE='2024-05-26T20:37:27.397533+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-26T20:37:27.397533+00:00'
+[2024-05-26T20:37:40.926+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-26T20:37:41.027+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-26T20:37:41.094+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-26T20:37:41.129+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-05-26T20:37:41.131+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-26T20:37:41.170+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=transform_dag, task_id=Clean_Product.extract_data, run_id=manual__2024-05-26T20:37:27.397533+00:00, execution_date=20240526T203727, start_date=20240526T203738, end_date=20240526T203741
+[2024-05-26T20:37:41.280+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-26T20:37:41.338+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-26T20:37:41.341+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

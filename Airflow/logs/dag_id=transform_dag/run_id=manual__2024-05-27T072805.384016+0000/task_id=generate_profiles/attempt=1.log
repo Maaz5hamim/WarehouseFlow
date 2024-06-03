@@ -1,0 +1,157 @@
+[2024-05-27T07:28:29.069+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T07:28:29.174+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:28:05.384016+00:00 [queued]>
+[2024-05-27T07:28:29.200+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:28:05.384016+00:00 [queued]>
+[2024-05-27T07:28:29.201+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T07:28:29.267+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_profiles> on 2024-05-27 07:28:05.384016+00:00
+[2024-05-27T07:28:29.287+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'transform_dag', 'generate_profiles', 'manual__2024-05-27T07:28:05.384016+00:00', '--job-id', '169', '--raw', '--subdir', 'DAGS_FOLDER/transformation_dag.py', '--cfg-path', '/tmp/tmpyvkmq3u_']
+[2024-05-27T07:28:29.291+0000] {standard_task_runner.py:91} INFO - Job 169: Subtask generate_profiles
+[2024-05-27T07:28:29.295+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=2839) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-05-27T07:28:29.296+0000] {standard_task_runner.py:63} INFO - Started process 2848 to run task
+[2024-05-27T07:28:29.445+0000] {task_command.py:426} INFO - Running <TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:28:05.384016+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T07:28:29.690+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='transform_dag' AIRFLOW_CTX_TASK_ID='generate_profiles' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T07:28:05.384016+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T07:28:05.384016+00:00'
+[2024-05-27T07:28:29.693+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T07:28:29.758+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T07:28:30.173+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-27T07:28:31.558+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/5 [00:00<?, ?it/s]
+[2024-05-27T07:28:31.790+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/11 [00:00<?, ?it/s, Describe variable:product_id]
+[2024-05-27T07:28:31.818+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   9%|9         | 1/11 [00:00<00:02,  3.86it/s, Describe variable:product_id]
+[2024-05-27T07:28:31.819+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   9%|9         | 1/11 [00:00<00:02,  3.86it/s, Describe variable:product_description]
+[2024-05-27T07:28:31.826+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  18%|#8        | 2/11 [00:00<00:02,  3.86it/s, Describe variable:category_name]      
+[2024-05-27T07:28:31.847+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  27%|##7       | 3/11 [00:00<00:02,  3.86it/s, Describe variable:product_name] 
+[2024-05-27T07:28:31.862+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  36%|###6      | 4/11 [00:00<00:01,  3.86it/s, Describe variable:brand_name]  
+[2024-05-27T07:28:31.873+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  45%|####5     | 5/11 [00:00<00:01,  3.86it/s, Describe variable:category_description]
+[2024-05-27T07:28:31.876+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  55%|#####4    | 6/11 [00:00<00:01,  3.86it/s, Get variable types]                    
+[2024-05-27T07:28:31.879+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  58%|#####8    | 7/12 [00:00<00:01,  3.86it/s, Get dataframe statistics]
+[2024-05-27T07:28:31.882+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  62%|######1   | 8/13 [00:00<00:01,  3.86it/s, Calculate auto correlation]
+[2024-05-27T07:28:31.932+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  69%|######9   | 9/13 [00:00<00:00, 29.49it/s, Calculate auto correlation]
+[2024-05-27T07:28:31.933+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  69%|######9   | 9/13 [00:00<00:00, 29.49it/s, Get scatter matrix]        
+[2024-05-27T07:28:31.934+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  60%|######    | 9/15 [00:00<00:00, 29.49it/s, Missing diagram bar]
+[2024-05-27T07:28:32.646+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 10/15 [00:01<00:00, 29.49it/s, Missing diagram matrix]
+[2024-05-27T07:28:32.962+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  73%|#######3  | 11/15 [00:01<00:00, 29.49it/s, Take sample]           
+[2024-05-27T07:28:32.965+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  80%|########  | 12/15 [00:01<00:00, 29.49it/s, Detecting duplicates]
+[2024-05-27T07:28:32.985+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  87%|########6 | 13/15 [00:01<00:00, 29.49it/s, Get alerts]          
+[2024-05-27T07:28:32.987+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  93%|#########3| 14/15 [00:01<00:00,  8.79it/s, Get alerts]
+[2024-05-27T07:28:32.989+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  93%|#########3| 14/15 [00:01<00:00,  8.79it/s, Get reproduction details]
+[2024-05-27T07:28:32.992+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 15/15 [00:01<00:00,  8.79it/s, Completed]               
+[2024-05-27T07:28:32.993+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 15/15 [00:01<00:00, 10.46it/s, Completed]
+[2024-05-27T07:28:32.995+0000] {logging_mixin.py:188} WARNING - Generate report structure:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:28:44.456+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:11<00:00, 11.45s/it]
+[2024-05-27T07:28:44.460+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:11<00:00, 11.46s/it]
+[2024-05-27T07:28:44.462+0000] {logging_mixin.py:188} WARNING - Render HTML:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:28:45.617+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:01<00:00,  1.15s/it]
+[2024-05-27T07:28:45.619+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:01<00:00,  1.15s/it]
+[2024-05-27T07:28:45.621+0000] {logging_mixin.py:188} WARNING - Export report to file:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:28:45.647+0000] {logging_mixin.py:188} WARNING - Export report to file: 100%|##########| 1/1 [00:00<00:00, 40.06it/s]
+[2024-05-27T07:28:45.675+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T07:28:46.015+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-27T07:28:47.480+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/5 [00:00<?, ?it/s]
+[2024-05-27T07:28:47.730+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/14 [00:00<?, ?it/s, Describe variable:customer_id]
+[2024-05-27T07:28:47.737+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   7%|7         | 1/14 [00:00<00:03,  3.95it/s, Describe variable:customer_id]
+[2024-05-27T07:28:47.739+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   7%|7         | 1/14 [00:00<00:03,  3.95it/s, Describe variable:customer_name]
+[2024-05-27T07:28:47.754+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  14%|#4        | 2/14 [00:00<00:03,  3.95it/s, Describe variable:phone]        
+[2024-05-27T07:28:47.767+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  21%|##1       | 3/14 [00:00<00:02,  3.95it/s, Describe variable:company_name]
+[2024-05-27T07:28:47.892+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  29%|##8       | 4/14 [00:00<00:02,  3.95it/s, Describe variable:city]        
+[2024-05-27T07:28:47.895+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  36%|###5      | 5/14 [00:00<00:00, 13.94it/s, Describe variable:city]
+[2024-05-27T07:28:47.969+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  36%|###5      | 5/14 [00:00<00:00, 13.94it/s, Describe variable:province]
+[2024-05-27T07:28:48.028+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  43%|####2     | 6/14 [00:00<00:00, 13.94it/s, Describe variable:country] 
+[2024-05-27T07:28:48.035+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  50%|#####     | 7/14 [00:00<00:00, 14.07it/s, Describe variable:country]
+[2024-05-27T07:28:48.041+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  50%|#####     | 7/14 [00:00<00:00, 14.07it/s, Describe variable:address]
+[2024-05-27T07:28:48.059+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  57%|#####7    | 8/14 [00:00<00:00, 14.07it/s, Describe variable:email]  
+[2024-05-27T07:28:48.064+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  64%|######4   | 9/14 [00:00<00:00, 14.07it/s, Get variable types]     
+[2024-05-27T07:28:48.073+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 10/15 [00:00<00:00, 14.07it/s, Get dataframe statistics]
+[2024-05-27T07:28:48.078+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  69%|######8   | 11/16 [00:00<00:00, 14.07it/s, Calculate auto correlation]
+[2024-05-27T07:28:48.136+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 12/16 [00:00<00:00, 23.90it/s, Calculate auto correlation]
+[2024-05-27T07:28:48.139+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 12/16 [00:00<00:00, 23.90it/s, Get scatter matrix]        
+[2024-05-27T07:28:48.141+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 12/18 [00:00<00:00, 23.90it/s, Missing diagram bar]
+[2024-05-27T07:28:48.973+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  72%|#######2  | 13/18 [00:01<00:00, 23.90it/s, Missing diagram matrix]
+[2024-05-27T07:28:49.298+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  78%|#######7  | 14/18 [00:01<00:00, 23.90it/s, Take sample]           
+[2024-05-27T07:28:49.303+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  83%|########3 | 15/18 [00:01<00:00,  6.39it/s, Take sample]
+[2024-05-27T07:28:49.304+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  83%|########3 | 15/18 [00:01<00:00,  6.39it/s, Detecting duplicates]
+[2024-05-27T07:28:49.335+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  89%|########8 | 16/18 [00:01<00:00,  6.39it/s, Get alerts]          
+[2024-05-27T07:28:49.337+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  94%|#########4| 17/18 [00:01<00:00,  6.39it/s, Get reproduction details]
+[2024-05-27T07:28:49.341+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 18/18 [00:01<00:00,  6.39it/s, Completed]               
+[2024-05-27T07:28:49.342+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 18/18 [00:01<00:00,  9.67it/s, Completed]
+[2024-05-27T07:28:49.347+0000] {logging_mixin.py:188} WARNING - Generate report structure:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:29:09.374+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:20<00:00, 20.01s/it]
+[2024-05-27T07:29:09.380+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:20<00:00, 20.03s/it]
+[2024-05-27T07:29:09.382+0000] {logging_mixin.py:188} WARNING - Render HTML:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:29:10.476+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:01<00:00,  1.07s/it]
+[2024-05-27T07:29:10.482+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:01<00:00,  1.10s/it]
+[2024-05-27T07:29:10.487+0000] {logging_mixin.py:188} WARNING - Export report to file:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:29:10.525+0000] {logging_mixin.py:188} WARNING - Export report to file: 100%|##########| 1/1 [00:00<00:00, 28.12it/s]
+[2024-05-27T07:29:10.545+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T07:29:10.968+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-27T07:29:16.777+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/5 [00:00<?, ?it/s]
+[2024-05-27T07:29:17.120+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/14 [00:00<?, ?it/s, Describe variable:contact_name]
+[2024-05-27T07:29:17.163+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   7%|7         | 1/14 [00:00<00:04,  2.70it/s, Describe variable:contact_name]
+[2024-05-27T07:29:17.170+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   7%|7         | 1/14 [00:00<00:04,  2.70it/s, Describe variable:phone]       
+[2024-05-27T07:29:17.176+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  14%|#4        | 2/14 [00:00<00:04,  2.70it/s, Describe variable:supplier_id]
+[2024-05-27T07:29:17.275+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  21%|##1       | 3/14 [00:00<00:04,  2.70it/s, Describe variable:company_name]
+[2024-05-27T07:29:17.287+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  29%|##8       | 4/14 [00:00<00:01,  9.37it/s, Describe variable:company_name]
+[2024-05-27T07:29:17.346+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  29%|##8       | 4/14 [00:00<00:01,  9.37it/s, Describe variable:province]    
+[2024-05-27T07:29:17.390+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  36%|###5      | 5/14 [00:00<00:00,  9.37it/s, Describe variable:email]   
+[2024-05-27T07:29:17.410+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  43%|####2     | 6/14 [00:00<00:00, 11.49it/s, Describe variable:email]
+[2024-05-27T07:29:17.427+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  43%|####2     | 6/14 [00:00<00:00, 11.49it/s, Describe variable:city] 
+[2024-05-27T07:29:17.477+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  50%|#####     | 7/14 [00:00<00:00, 11.49it/s, Describe variable:country]
+[2024-05-27T07:29:17.490+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  57%|#####7    | 8/14 [00:00<00:00, 11.49it/s, Describe variable:address]
+[2024-05-27T07:29:17.493+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  64%|######4   | 9/14 [00:00<00:00, 11.49it/s, Get variable types]       
+[2024-05-27T07:29:17.494+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 10/15 [00:00<00:00, 11.49it/s, Get dataframe statistics]
+[2024-05-27T07:29:17.555+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  73%|#######3  | 11/15 [00:00<00:00, 19.36it/s, Get dataframe statistics]
+[2024-05-27T07:29:17.558+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  69%|######8   | 11/16 [00:00<00:00, 19.36it/s, Calculate auto correlation]
+[2024-05-27T07:29:17.562+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 12/16 [00:00<00:00, 19.36it/s, Get scatter matrix]        
+[2024-05-27T07:29:17.564+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 12/18 [00:00<00:00, 19.36it/s, Missing diagram bar]
+[2024-05-27T07:29:18.803+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  72%|#######2  | 13/18 [00:02<00:00, 19.36it/s, Missing diagram matrix]
+[2024-05-27T07:29:19.168+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  78%|#######7  | 14/18 [00:02<00:00,  4.59it/s, Missing diagram matrix]
+[2024-05-27T07:29:19.169+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  78%|#######7  | 14/18 [00:02<00:00,  4.59it/s, Take sample]           
+[2024-05-27T07:29:19.173+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  83%|########3 | 15/18 [00:02<00:00,  4.59it/s, Detecting duplicates]
+[2024-05-27T07:29:19.216+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  89%|########8 | 16/18 [00:02<00:00,  4.59it/s, Get alerts]          
+[2024-05-27T07:29:19.217+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  94%|#########4| 17/18 [00:02<00:00,  4.59it/s, Get reproduction details]
+[2024-05-27T07:29:19.221+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 18/18 [00:02<00:00,  4.59it/s, Completed]               
+[2024-05-27T07:29:19.223+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 18/18 [00:02<00:00,  7.37it/s, Completed]
+[2024-05-27T07:29:19.226+0000] {logging_mixin.py:188} WARNING - Generate report structure:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:36:15.026+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [06:55<00:00, 415.70s/it]
+[2024-05-27T07:36:15.077+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [06:55<00:00, 415.85s/it]
+[2024-05-27T07:36:15.089+0000] {logging_mixin.py:188} WARNING - Render HTML:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:36:19.704+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:04<00:00,  4.25s/it]
+[2024-05-27T07:36:20.627+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:05<00:00,  5.07s/it]
+[2024-05-27T07:36:21.400+0000] {logging_mixin.py:188} WARNING - Export report to file:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:36:21.520+0000] {logging_mixin.py:188} WARNING - Export report to file: 100%|##########| 1/1 [00:00<00:00, 13.61it/s]
+[2024-05-27T07:36:21.661+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T07:36:52.226+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T07:36:52.365+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/transformation_dag.py", line 17, in generate_profile
+    df = hook.get_pandas_df(sql)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 242, in get_pandas_df
+    with closing(self.get_conn()) as conn:
+                 ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/mysql/hooks/mysql.py", line 195, in get_conn
+    return MySQLdb.connect(**conn_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 195, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2005, "Unknown server host 'mysql-db' (-3)")
+[2024-05-27T07:36:52.985+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=transform_dag, task_id=generate_profiles, run_id=manual__2024-05-27T07:28:05.384016+00:00, execution_date=20240527T072805, start_date=20240527T072829, end_date=20240527T073652
+[2024-05-27T07:36:53.432+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 169 for task generate_profiles ((2005, "Unknown server host 'mysql-db' (-3)"); 2848)
+[2024-05-27T07:36:53.714+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-27T07:36:53.868+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T07:36:53.872+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

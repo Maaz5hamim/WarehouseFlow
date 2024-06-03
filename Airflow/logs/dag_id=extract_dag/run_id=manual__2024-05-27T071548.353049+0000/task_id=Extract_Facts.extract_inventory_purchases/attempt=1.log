@@ -1,0 +1,61 @@
+[2024-05-27T07:16:06.798+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T07:16:07.002+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-27T07:15:48.353049+00:00 [queued]>
+[2024-05-27T07:16:07.052+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-27T07:15:48.353049+00:00 [queued]>
+[2024-05-27T07:16:07.056+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T07:16:07.153+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Extract_Facts.extract_inventory_purchases> on 2024-05-27 07:15:48.353049+00:00
+[2024-05-27T07:16:07.172+0000] {standard_task_runner.py:63} INFO - Started process 2628 to run task
+[2024-05-27T07:16:07.183+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'Extract_Facts.extract_inventory_purchases', 'manual__2024-05-27T07:15:48.353049+00:00', '--job-id', '164', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpu_1uwuuu']
+[2024-05-27T07:16:07.188+0000] {standard_task_runner.py:91} INFO - Job 164: Subtask Extract_Facts.extract_inventory_purchases
+[2024-05-27T07:16:07.365+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-27T07:15:48.353049+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T07:16:08.223+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='Extract_Facts.extract_inventory_purchases' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T07:15:48.353049+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T07:15:48.353049+00:00'
+[2024-05-27T07:16:08.235+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T07:16:08.421+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, delay, freight_charges, transaction_type)
+With OrderTotals As 
+(
+	SELECT po.order_id, SUM(pod.units_bought * pod.unit_cost_price) AS total_cost
+	FROM Purchase_Order po JOIN Purchase_Order_Details pod ON po.order_id = pod.order_id
+	GROUP BY po.order_id
+)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    DATEDIFF(po.actual_shipment, po.expected_shipment) AS delay,
+    (po.freight_charges * (pod.units_bought * pod.unit_cost_price) / ot.total_cost) AS freight_charges,
+    'Purchases' AS transaction_type
+FROM Purchase_Order po LEFT JOIN Purchase_Order_Details pod USING (order_id) LEFT JOIN OrderTotals ot ON po.order_id = ot.order_id
+WHERE po.order_status = 'Shipped';
+[2024-05-27T07:16:08.502+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-27T07:16:09.735+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-27T07:16:10.591+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, delay, freight_charges, transaction_type)
+With OrderTotals As 
+(
+	SELECT po.order_id, SUM(pod.units_bought * pod.unit_cost_price) AS total_cost
+	FROM Purchase_Order po JOIN Purchase_Order_Details pod ON po.order_id = pod.order_id
+	GROUP BY po.order_id
+)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    DATEDIFF(po.actual_shipment, po.expected_shipment) AS delay,
+    (po.freight_charges * (pod.units_bought * pod.unit_cost_price) / ot.total_cost) AS freight_charges,
+    'Purchases' AS transaction_type
+FROM Purchase_Order po LEFT JOIN Purchase_Order_Details pod USING (order_id) LEFT JOIN OrderTotals ot ON po.order_id = ot.order_id
+WHERE po.order_status = 'Shipped';, parameters: None
+[2024-05-27T07:16:12.554+0000] {sql.py:479} INFO - Rows affected: 1812
+[2024-05-27T07:16:12.592+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T07:16:12.620+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=Extract_Facts.extract_inventory_purchases, run_id=manual__2024-05-27T07:15:48.353049+00:00, execution_date=20240527T071548, start_date=20240527T071607, end_date=20240527T071612
+[2024-05-27T07:16:12.701+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-27T07:16:12.737+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T07:16:12.740+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

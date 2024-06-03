@@ -1,0 +1,20 @@
+[2024-06-03T09:52:20.640+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-03T09:52:21.071+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: snapshot_dag.Procurement_Mart_Snapshot manual__2024-06-03T09:51:55.611944+00:00 [queued]>
+[2024-06-03T09:52:21.129+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: snapshot_dag.Procurement_Mart_Snapshot manual__2024-06-03T09:51:55.611944+00:00 [queued]>
+[2024-06-03T09:52:21.131+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-03T09:52:21.359+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): Procurement_Mart_Snapshot> on 2024-06-03 09:51:55.611944+00:00
+[2024-06-03T09:52:21.387+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'snapshot_dag', 'Procurement_Mart_Snapshot', 'manual__2024-06-03T09:51:55.611944+00:00', '--job-id', '260', '--raw', '--subdir', 'DAGS_FOLDER/snapshot.py', '--cfg-path', '/tmp/tmpwt6xxcsh']
+[2024-06-03T09:52:21.411+0000] {standard_task_runner.py:91} INFO - Job 260: Subtask Procurement_Mart_Snapshot
+[2024-06-03T09:52:21.414+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=399) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-06-03T09:52:21.420+0000] {standard_task_runner.py:63} INFO - Started process 404 to run task
+[2024-06-03T09:52:22.702+0000] {task_command.py:426} INFO - Running <TaskInstance: snapshot_dag.Procurement_Mart_Snapshot manual__2024-06-03T09:51:55.611944+00:00 [running]> on host 84cc6ba0e639
+[2024-06-03T09:52:23.036+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='snapshot_dag' AIRFLOW_CTX_TASK_ID='Procurement_Mart_Snapshot' AIRFLOW_CTX_EXECUTION_DATE='2024-06-03T09:51:55.611944+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-03T09:51:55.611944+00:00'
+[2024-06-03T09:52:23.040+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-03T09:52:23.086+0000] {base.py:84} INFO - Using connection ID 'mini_motors_warehouse' for task execution.
+[2024-06-03T09:52:23.115+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-06-03T09:52:23.468+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-06-03T09:52:23.470+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-03T09:52:23.516+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=snapshot_dag, task_id=Procurement_Mart_Snapshot, run_id=manual__2024-06-03T09:51:55.611944+00:00, execution_date=20240603T095155, start_date=20240603T095221, end_date=20240603T095223
+[2024-06-03T09:52:23.693+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-03T09:52:23.741+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-03T09:52:23.744+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

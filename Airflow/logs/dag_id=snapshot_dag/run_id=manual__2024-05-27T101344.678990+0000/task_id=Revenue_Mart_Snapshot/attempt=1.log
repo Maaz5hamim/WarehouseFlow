@@ -1,0 +1,51 @@
+[2024-05-27T10:14:19.132+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T10:14:19.292+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: snapshot_dag.Revenue_Mart_Snapshot manual__2024-05-27T10:13:44.678990+00:00 [queued]>
+[2024-05-27T10:14:19.367+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: snapshot_dag.Revenue_Mart_Snapshot manual__2024-05-27T10:13:44.678990+00:00 [queued]>
+[2024-05-27T10:14:19.369+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T10:14:19.490+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): Revenue_Mart_Snapshot> on 2024-05-27 10:13:44.678990+00:00
+[2024-05-27T10:14:19.517+0000] {standard_task_runner.py:63} INFO - Started process 2275 to run task
+[2024-05-27T10:14:19.514+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'snapshot_dag', 'Revenue_Mart_Snapshot', 'manual__2024-05-27T10:13:44.678990+00:00', '--job-id', '196', '--raw', '--subdir', 'DAGS_FOLDER/snapshot.py', '--cfg-path', '/tmp/tmphgvhita_']
+[2024-05-27T10:14:19.528+0000] {standard_task_runner.py:91} INFO - Job 196: Subtask Revenue_Mart_Snapshot
+[2024-05-27T10:14:19.665+0000] {task_command.py:426} INFO - Running <TaskInstance: snapshot_dag.Revenue_Mart_Snapshot manual__2024-05-27T10:13:44.678990+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T10:14:20.506+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='snapshot_dag' AIRFLOW_CTX_TASK_ID='Revenue_Mart_Snapshot' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T10:13:44.678990+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T10:13:44.678990+00:00'
+[2024-05-27T10:14:20.508+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T10:14:21.578+0000] {base.py:84} INFO - Using connection ID 'mini_motors_warehouse' for task execution.
+[2024-05-27T10:14:21.616+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-27T10:14:21.690+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T10:14:21.692+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/snapshot.py", line 28, in generate_snapshot
+    df.to_csv(f'/opt/airflow/snapshots/{mart}_snapshot.csv')
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3902, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/formats/format.py", line 1152, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/formats/csvs.py", line 247, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 739, in get_handle
+    check_parent_directory(str(handle))
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/common.py", line 604, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '/opt/airflow/snapshots'
+[2024-05-27T10:14:21.775+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=snapshot_dag, task_id=Revenue_Mart_Snapshot, run_id=manual__2024-05-27T10:13:44.678990+00:00, execution_date=20240527T101344, start_date=20240527T101419, end_date=20240527T101421
+[2024-05-27T10:14:21.896+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 196 for task Revenue_Mart_Snapshot (Cannot save file into a non-existent directory: '/opt/airflow/snapshots'; 2275)
+[2024-05-27T10:14:21.950+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-27T10:14:22.021+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T10:14:22.027+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

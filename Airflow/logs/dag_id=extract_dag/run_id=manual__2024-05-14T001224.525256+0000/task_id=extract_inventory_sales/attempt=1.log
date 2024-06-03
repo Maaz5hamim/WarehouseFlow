@@ -1,0 +1,77 @@
+[2024-05-14T00:13:24.807+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-14T00:13:24.856+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.extract_inventory_sales manual__2024-05-14T00:12:24.525256+00:00 [queued]>
+[2024-05-14T00:13:24.876+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.extract_inventory_sales manual__2024-05-14T00:12:24.525256+00:00 [queued]>
+[2024-05-14T00:13:24.877+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-14T00:13:24.931+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): extract_inventory_sales> on 2024-05-14 00:12:24.525256+00:00
+[2024-05-14T00:13:24.938+0000] {standard_task_runner.py:63} INFO - Started process 428 to run task
+[2024-05-14T00:13:24.942+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'extract_inventory_sales', 'manual__2024-05-14T00:12:24.525256+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpcqae8crb']
+[2024-05-14T00:13:24.945+0000] {standard_task_runner.py:91} INFO - Job 29: Subtask extract_inventory_sales
+[2024-05-14T00:13:25.163+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.extract_inventory_sales manual__2024-05-14T00:12:24.525256+00:00 [running]> on host 2f45394e2013
+[2024-05-14T00:13:25.649+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='extract_inventory_sales' AIRFLOW_CTX_EXECUTION_DATE='2024-05-14T00:12:24.525256+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-14T00:12:24.525256+00:00'
+[2024-05-14T00:13:25.652+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-14T00:13:25.834+0000] {sql.py:276} INFO - Executing: INSERT INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, transaction_type)
+SELECT 
+    st.transaction_date AS date,
+    st.transaction_id AS db_id,
+    st.customer_id,
+    td.product_id,
+    st.warehouse_id,
+    td.units_sold AS quantity,
+    td.unit_selling_price AS cost,
+    IF(sh.shipment_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(sh.shipment_status = 'Shipped', DATEDIFF(sh.delivered_date, st.expected_delivery), null) AS delay,
+    'Sales' AS transaction_type
+FROM 
+    Sales_Transaction st
+    JOIN Transaction_Details td USING (transaction_id)
+    LEFT JOIN Shipment sh using(transaction_id);
+[2024-05-14T00:13:25.851+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-14T00:13:25.978+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-14T00:13:25.991+0000] {sql.py:470} INFO - Running statement: INSERT INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, transaction_type)
+SELECT 
+    st.transaction_date AS date,
+    st.transaction_id AS db_id,
+    st.customer_id,
+    td.product_id,
+    st.warehouse_id,
+    td.units_sold AS quantity,
+    td.unit_selling_price AS cost,
+    IF(sh.shipment_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(sh.shipment_status = 'Shipped', DATEDIFF(sh.delivered_date, st.expected_delivery), null) AS delay,
+    'Sales' AS transaction_type
+FROM 
+    Sales_Transaction st
+    JOIN Transaction_Details td USING (transaction_id)
+    LEFT JOIN Shipment sh using(transaction_id);, parameters: None
+[2024-05-14T00:13:25.994+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-14T00:13:25.995+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`staging_area`.`inventory_transactions`, CONSTRAINT `fk_supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`))')
+[2024-05-14T00:13:26.013+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=extract_dag, task_id=extract_inventory_sales, run_id=manual__2024-05-14T00:12:24.525256+00:00, execution_date=20240514T001224, start_date=20240514T001324, end_date=20240514T001326
+[2024-05-14T00:13:26.059+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 29 for task extract_inventory_sales ((1452, 'Cannot add or update a child row: a foreign key constraint fails (`staging_area`.`inventory_transactions`, CONSTRAINT `fk_supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`))'); 428)
+[2024-05-14T00:13:26.087+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-14T00:13:26.123+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-14T00:13:26.126+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

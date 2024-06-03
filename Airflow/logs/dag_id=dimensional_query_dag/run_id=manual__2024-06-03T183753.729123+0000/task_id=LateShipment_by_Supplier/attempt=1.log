@@ -1,0 +1,86 @@
+[2024-06-03T18:38:19.001+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-03T18:38:19.083+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dimensional_query_dag.LateShipment_by_Supplier manual__2024-06-03T18:37:53.729123+00:00 [queued]>
+[2024-06-03T18:38:19.116+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dimensional_query_dag.LateShipment_by_Supplier manual__2024-06-03T18:37:53.729123+00:00 [queued]>
+[2024-06-03T18:38:19.117+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-03T18:38:19.193+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): LateShipment_by_Supplier> on 2024-06-03 18:37:53.729123+00:00
+[2024-06-03T18:38:19.214+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'dimensional_query_dag', 'LateShipment_by_Supplier', 'manual__2024-06-03T18:37:53.729123+00:00', '--job-id', '303', '--raw', '--subdir', 'DAGS_FOLDER/dimensional_query_dag.py', '--cfg-path', '/tmp/tmp31goap6s']
+[2024-06-03T18:38:19.221+0000] {standard_task_runner.py:91} INFO - Job 303: Subtask LateShipment_by_Supplier
+[2024-06-03T18:38:19.233+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=6838) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-06-03T18:38:19.235+0000] {standard_task_runner.py:63} INFO - Started process 6843 to run task
+[2024-06-03T18:38:19.380+0000] {task_command.py:426} INFO - Running <TaskInstance: dimensional_query_dag.LateShipment_by_Supplier manual__2024-06-03T18:37:53.729123+00:00 [running]> on host 84cc6ba0e639
+[2024-06-03T18:38:19.605+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dimensional_query_dag' AIRFLOW_CTX_TASK_ID='LateShipment_by_Supplier' AIRFLOW_CTX_EXECUTION_DATE='2024-06-03T18:37:53.729123+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-03T18:37:53.729123+00:00'
+[2024-06-03T18:38:19.608+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-03T18:38:19.654+0000] {base.py:84} INFO - Using connection ID 'mini_motors_warehouse' for task execution.
+[2024-06-03T18:38:19.679+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-06-03T18:38:19.682+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-03T18:38:19.683+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 2262, in execute
+    cur.execute(sql, *args)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/connections.py", line 261, in query
+    _mysql.connection.query(self, query)
+MySQLdb.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SSELECT \n    s.sup_name,\n    SUM(CASE WHEN itf.Delay < 0 THEN 1 ELSE 0 END) * 10' at line 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dimensional_query_dag.py", line 50, in generate_snapshot
+    df = hook.get_pandas_df(query)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 243, in get_pandas_df
+    return psql.read_sql(sql, con=conn, params=parameters, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 654, in read_sql
+    return pandas_sql.read_query(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 2326, in read_query
+    cursor = self.execute(sql, params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 2274, in execute
+    raise ex from exc
+pandas.errors.DatabaseError: Execution failed on sql '
+SSELECT 
+    s.sup_name,
+    SUM(CASE WHEN itf.Delay < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(itf.transaction_id) AS EarlyShipmentPercentage,
+    SUM(CASE WHEN itf.Delay > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(itf.transaction_id) AS LateShipmentPercentage
+FROM 
+    Supplier s
+JOIN 
+    Inventory_Transactions_Fact itf ON s.sup_id = itf.sup_id
+GROUP BY 
+    s.sup_name;': (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SSELECT \n    s.sup_name,\n    SUM(CASE WHEN itf.Delay < 0 THEN 1 ELSE 0 END) * 10' at line 1")
+[2024-06-03T18:38:19.727+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=dimensional_query_dag, task_id=LateShipment_by_Supplier, run_id=manual__2024-06-03T18:37:53.729123+00:00, execution_date=20240603T183753, start_date=20240603T183819, end_date=20240603T183819
+[2024-06-03T18:38:19.829+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 303 for task LateShipment_by_Supplier (Execution failed on sql '
+SSELECT 
+    s.sup_name,
+    SUM(CASE WHEN itf.Delay < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(itf.transaction_id) AS EarlyShipmentPercentage,
+    SUM(CASE WHEN itf.Delay > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(itf.transaction_id) AS LateShipmentPercentage
+FROM 
+    Supplier s
+JOIN 
+    Inventory_Transactions_Fact itf ON s.sup_id = itf.sup_id
+GROUP BY 
+    s.sup_name;': (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SSELECT \n    s.sup_name,\n    SUM(CASE WHEN itf.Delay < 0 THEN 1 ELSE 0 END) * 10' at line 1"); 6843)
+[2024-06-03T18:38:19.857+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-03T18:38:19.902+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-03T18:38:19.905+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

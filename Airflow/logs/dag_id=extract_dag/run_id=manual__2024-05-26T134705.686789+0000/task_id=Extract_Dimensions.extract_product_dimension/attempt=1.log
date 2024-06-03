@@ -1,0 +1,26 @@
+[2024-05-26T13:47:33.569+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-26T13:47:33.895+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_product_dimension manual__2024-05-26T13:47:05.686789+00:00 [queued]>
+[2024-05-26T13:47:33.936+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_product_dimension manual__2024-05-26T13:47:05.686789+00:00 [queued]>
+[2024-05-26T13:47:33.938+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-26T13:47:34.114+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Extract_Dimensions.extract_product_dimension> on 2024-05-26 13:47:05.686789+00:00
+[2024-05-26T13:47:34.135+0000] {standard_task_runner.py:63} INFO - Started process 1870 to run task
+[2024-05-26T13:47:34.154+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'Extract_Dimensions.extract_product_dimension', 'manual__2024-05-26T13:47:05.686789+00:00', '--job-id', '68', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpgj3qvz_q']
+[2024-05-26T13:47:34.182+0000] {standard_task_runner.py:91} INFO - Job 68: Subtask Extract_Dimensions.extract_product_dimension
+[2024-05-26T13:47:34.638+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.Extract_Dimensions.extract_product_dimension manual__2024-05-26T13:47:05.686789+00:00 [running]> on host 2ae322230659
+[2024-05-26T13:47:35.797+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='Extract_Dimensions.extract_product_dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-26T13:47:05.686789+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-26T13:47:05.686789+00:00'
+[2024-05-26T13:47:35.802+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-26T13:47:40.786+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO staging_area.Product (product_id, product_name, product_description, category_name, category_description, brand_name)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);
+[2024-05-26T13:47:40.837+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T13:47:41.511+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T13:47:42.684+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO staging_area.Product (product_id, product_name, product_description, category_name, category_description, brand_name)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);, parameters: None
+[2024-05-26T13:47:42.759+0000] {sql.py:479} INFO - Rows affected: 89
+[2024-05-26T13:47:42.788+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-26T13:47:42.814+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=Extract_Dimensions.extract_product_dimension, run_id=manual__2024-05-26T13:47:05.686789+00:00, execution_date=20240526T134705, start_date=20240526T134733, end_date=20240526T134742
+[2024-05-26T13:47:42.925+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-26T13:47:42.955+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-26T13:47:42.986+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-26T13:47:42.990+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

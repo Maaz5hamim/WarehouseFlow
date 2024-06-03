@@ -1,0 +1,98 @@
+[2024-05-26T13:56:12.607+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-26T13:56:12.680+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-26T13:55:19.041681+00:00 [queued]>
+[2024-05-26T13:56:12.715+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-26T13:55:19.041681+00:00 [queued]>
+[2024-05-26T13:56:12.716+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-26T13:56:12.785+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Extract_Facts.extract_inventory_purchases> on 2024-05-26 13:55:19.041681+00:00
+[2024-05-26T13:56:12.794+0000] {standard_task_runner.py:63} INFO - Started process 1961 to run task
+[2024-05-26T13:56:12.799+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'Extract_Facts.extract_inventory_purchases', 'manual__2024-05-26T13:55:19.041681+00:00', '--job-id', '78', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpby6_0t0h']
+[2024-05-26T13:56:12.802+0000] {standard_task_runner.py:91} INFO - Job 78: Subtask Extract_Facts.extract_inventory_purchases
+[2024-05-26T13:56:12.956+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.Extract_Facts.extract_inventory_purchases manual__2024-05-26T13:55:19.041681+00:00 [running]> on host 2ae322230659
+[2024-05-26T13:56:13.165+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='Extract_Facts.extract_inventory_purchases' AIRFLOW_CTX_EXECUTION_DATE='2024-05-26T13:55:19.041681+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-26T13:55:19.041681+00:00'
+[2024-05-26T13:56:13.166+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-26T13:56:13.377+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, freight_charges, transaction_type)
+With OrderTotals As 
+(
+	SELECT po.order_id, SUM(pod.units_bought * pod.unit_cost_price) AS total_cost
+	FROM Purchase_Order po JOIN Purchase_Order_Details pod ON po.order_id = pod.order_id
+	GROUP BY po.order_id
+)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    IF(po.order_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(po.order_status = 'Shipped', DATEDIFF(po.actual_shipment, po.expected_shipment), NULL) AS delay,
+    (po.freight_charges * (pod.units_bought * pod.unit_cost_price) / ot.total_cost) AS freight_charges,
+    'Purchases' AS transaction_type
+FROM
+    Purchase_Order po
+    JOIN Purchase_Order_Details pod USING (order_id)
+    JOIN OrderTotals ot ON po.order_id = ot.order_id;
+ON DUPLICATE KEY UPDATE
+    fullfilment = VALUES(fullfilment),
+    delay = VALUES(delay);
+[2024-05-26T13:56:13.402+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T13:56:13.540+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T13:56:13.562+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, freight_charges, transaction_type)
+With OrderTotals As 
+(
+	SELECT po.order_id, SUM(pod.units_bought * pod.unit_cost_price) AS total_cost
+	FROM Purchase_Order po JOIN Purchase_Order_Details pod ON po.order_id = pod.order_id
+	GROUP BY po.order_id
+)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    IF(po.order_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(po.order_status = 'Shipped', DATEDIFF(po.actual_shipment, po.expected_shipment), NULL) AS delay,
+    (po.freight_charges * (pod.units_bought * pod.unit_cost_price) / ot.total_cost) AS freight_charges,
+    'Purchases' AS transaction_type
+FROM
+    Purchase_Order po
+    JOIN Purchase_Order_Details pod USING (order_id)
+    JOIN OrderTotals ot ON po.order_id = ot.order_id;
+ON DUPLICATE KEY UPDATE
+    fullfilment = VALUES(fullfilment),
+    delay = VALUES(delay);, parameters: None
+[2024-05-26T13:56:14.323+0000] {sql.py:479} INFO - Rows affected: 1930
+[2024-05-26T13:56:14.328+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-26T13:56:14.329+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 415, in run
+    with closing(conn.cursor()) as cur:
+  File "/usr/local/lib/python3.12/contextlib.py", line 360, in __exit__
+    self.thing.close()
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 103, in close
+    self._discard()
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 95, in _discard
+    while con.next_result() == 0:  # -1 means no more data.
+          ^^^^^^^^^^^^^^^^^
+MySQLdb.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON DUPLICATE KEY UPDATE\n    fullfilment = VALUES(fullfilment),\n    delay = VALUE' at line 1")
+[2024-05-26T13:56:14.384+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=extract_dag, task_id=Extract_Facts.extract_inventory_purchases, run_id=manual__2024-05-26T13:55:19.041681+00:00, execution_date=20240526T135519, start_date=20240526T135612, end_date=20240526T135614
+[2024-05-26T13:56:14.549+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 78 for task Extract_Facts.extract_inventory_purchases ((1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ON DUPLICATE KEY UPDATE\n    fullfilment = VALUES(fullfilment),\n    delay = VALUE' at line 1"); 1961)
+[2024-05-26T13:56:14.590+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-26T13:56:14.704+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-26T13:56:14.711+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

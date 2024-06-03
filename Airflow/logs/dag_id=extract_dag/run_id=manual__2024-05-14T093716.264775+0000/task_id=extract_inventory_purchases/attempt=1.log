@@ -1,0 +1,58 @@
+[2024-05-14T09:38:00.730+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-14T09:38:00.783+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.extract_inventory_purchases manual__2024-05-14T09:37:16.264775+00:00 [queued]>
+[2024-05-14T09:38:00.806+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.extract_inventory_purchases manual__2024-05-14T09:37:16.264775+00:00 [queued]>
+[2024-05-14T09:38:00.807+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-14T09:38:00.859+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): extract_inventory_purchases> on 2024-05-14 09:37:16.264775+00:00
+[2024-05-14T09:38:00.866+0000] {standard_task_runner.py:63} INFO - Started process 562 to run task
+[2024-05-14T09:38:00.871+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'extract_inventory_purchases', 'manual__2024-05-14T09:37:16.264775+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmprr1n0qzk']
+[2024-05-14T09:38:00.874+0000] {standard_task_runner.py:91} INFO - Job 35: Subtask extract_inventory_purchases
+[2024-05-14T09:38:00.995+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.extract_inventory_purchases manual__2024-05-14T09:37:16.264775+00:00 [running]> on host 2f45394e2013
+[2024-05-14T09:38:01.205+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='extract_inventory_purchases' AIRFLOW_CTX_EXECUTION_DATE='2024-05-14T09:37:16.264775+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-14T09:37:16.264775+00:00'
+[2024-05-14T09:38:01.207+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-14T09:38:01.468+0000] {sql.py:276} INFO - Executing: INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, freight_charges, transaction_type)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    IF(po.order_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(po.order_status = 'Shipped', DATEDIFF(po.actual_shipment, po.expected_shipment), NULL) AS delay,
+    po.freight_charges,
+    'Purchases' AS transaction_type
+FROM 
+    Purchase_Order po
+    JOIN Purchase_Order_Details pod USING (order_id)
+ON DUPLICATE KEY UPDATE
+    fullfilment = VALUES(fullfilment),
+    delay = VALUES(delay);
+[2024-05-14T09:38:01.536+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-14T09:38:01.992+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-14T09:38:02.096+0000] {sql.py:470} INFO - Running statement: INSERT IGNORE INTO staging_area.Inventory_Transactions (date, db_id, supplier_id, product_id, warehouse_id, quantity, cost, fullfilment, delay, freight_charges, transaction_type)
+SELECT 
+    po.order_date AS date,
+    po.order_id AS db_id,
+    po.supplier_id,
+    pod.product_id,
+    po.shipment_destination AS warehouse_id,
+    pod.units_bought AS quantity,
+    pod.unit_cost_price AS cost,
+    IF(po.order_status = 'Shipped', 1, 0) AS fullfilment,
+    IF(po.order_status = 'Shipped', DATEDIFF(po.actual_shipment, po.expected_shipment), NULL) AS delay,
+    po.freight_charges,
+    'Purchases' AS transaction_type
+FROM 
+    Purchase_Order po
+    JOIN Purchase_Order_Details pod USING (order_id)
+ON DUPLICATE KEY UPDATE
+    fullfilment = VALUES(fullfilment),
+    delay = VALUES(delay);, parameters: None
+[2024-05-14T09:38:02.878+0000] {sql.py:479} INFO - Rows affected: 1930
+[2024-05-14T09:38:02.895+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-14T09:38:02.924+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=extract_inventory_purchases, run_id=manual__2024-05-14T09:37:16.264775+00:00, execution_date=20240514T093716, start_date=20240514T093800, end_date=20240514T093802
+[2024-05-14T09:38:03.034+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-14T09:38:03.075+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-14T09:38:03.111+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-05-14T09:38:03.126+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,24 @@
+version: “3.8”
+
+services:
+  mysql-db:
+    image: mysql:latest
+    restart: unless-stopped
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '4000:3306'
+    volumes:
+      - ./ProductionDB:/var/lib/mysql
+
+  sleek-airflow:
+    image: seek-airflow:latest
+    volumes:
+      - ./Airflow:/opt/airflow
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    command: airflow standalone
+

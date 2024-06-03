@@ -1,0 +1,37 @@
+[2024-06-02T11:23:03.837+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-02T11:23:03.909+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: transform_dag.Basic_Transformation.Populate_Transaction_Type manual__2024-06-02T11:15:59.777210+00:00 [queued]>
+[2024-06-02T11:23:03.937+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: transform_dag.Basic_Transformation.Populate_Transaction_Type manual__2024-06-02T11:15:59.777210+00:00 [queued]>
+[2024-06-02T11:23:03.938+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-02T11:23:04.014+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Basic_Transformation.Populate_Transaction_Type> on 2024-06-02 11:15:59.777210+00:00
+[2024-06-02T11:23:04.034+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'transform_dag', 'Basic_Transformation.Populate_Transaction_Type', 'manual__2024-06-02T11:15:59.777210+00:00', '--job-id', '221', '--raw', '--subdir', 'DAGS_FOLDER/transformation_dag.py', '--cfg-path', '/tmp/tmpi2jyt8v4']
+[2024-06-02T11:23:04.040+0000] {standard_task_runner.py:91} INFO - Job 221: Subtask Basic_Transformation.Populate_Transaction_Type
+[2024-06-02T11:23:04.044+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=484) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-06-02T11:23:04.046+0000] {standard_task_runner.py:63} INFO - Started process 493 to run task
+[2024-06-02T11:23:04.211+0000] {task_command.py:426} INFO - Running <TaskInstance: transform_dag.Basic_Transformation.Populate_Transaction_Type manual__2024-06-02T11:15:59.777210+00:00 [running]> on host 07f5ea287ef7
+[2024-06-02T11:23:04.490+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='transform_dag' AIRFLOW_CTX_TASK_ID='Basic_Transformation.Populate_Transaction_Type' AIRFLOW_CTX_EXECUTION_DATE='2024-06-02T11:15:59.777210+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-02T11:15:59.777210+00:00'
+[2024-06-02T11:23:04.492+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-02T11:23:04.523+0000] {sql.py:276} INFO - Executing: 
+      INSERT INTO Transaction_Type (transaction_type)
+      SELECT DISTINCT transaction_type
+      FROM Inventory_Transactions;
+
+      UPDATE Inventory_Transactions it JOIN Transaction_Type tt ON it.transaction_type = tt.transaction_type
+      SET it.transaction_type_id = tt.transaction_type_id;
+      
+[2024-06-02T11:23:04.548+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-06-02T11:23:04.742+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-06-02T11:23:04.760+0000] {sql.py:470} INFO - Running statement: 
+      INSERT INTO Transaction_Type (transaction_type)
+      SELECT DISTINCT transaction_type
+      FROM Inventory_Transactions;
+
+      UPDATE Inventory_Transactions it JOIN Transaction_Type tt ON it.transaction_type = tt.transaction_type
+      SET it.transaction_type_id = tt.transaction_type_id;
+      , parameters: None
+[2024-06-02T11:23:04.779+0000] {sql.py:479} INFO - Rows affected: 2
+[2024-06-02T11:23:05.196+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-02T11:23:05.225+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=transform_dag, task_id=Basic_Transformation.Populate_Transaction_Type, run_id=manual__2024-06-02T11:15:59.777210+00:00, execution_date=20240602T111559, start_date=20240602T112303, end_date=20240602T112305
+[2024-06-02T11:23:05.310+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-02T11:23:05.330+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-06-02T11:23:05.356+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-02T11:23:05.359+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

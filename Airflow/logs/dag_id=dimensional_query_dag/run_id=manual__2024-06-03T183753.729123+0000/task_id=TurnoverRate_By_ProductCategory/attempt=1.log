@@ -1,0 +1,20 @@
+[2024-06-03T18:38:08.921+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-03T18:38:09.004+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dimensional_query_dag.TurnoverRate_By_ProductCategory manual__2024-06-03T18:37:53.729123+00:00 [queued]>
+[2024-06-03T18:38:09.031+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dimensional_query_dag.TurnoverRate_By_ProductCategory manual__2024-06-03T18:37:53.729123+00:00 [queued]>
+[2024-06-03T18:38:09.033+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-03T18:38:09.097+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): TurnoverRate_By_ProductCategory> on 2024-06-03 18:37:53.729123+00:00
+[2024-06-03T18:38:09.119+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'dimensional_query_dag', 'TurnoverRate_By_ProductCategory', 'manual__2024-06-03T18:37:53.729123+00:00', '--job-id', '302', '--raw', '--subdir', 'DAGS_FOLDER/dimensional_query_dag.py', '--cfg-path', '/tmp/tmpf42byxs3']
+[2024-06-03T18:38:09.123+0000] {standard_task_runner.py:91} INFO - Job 302: Subtask TurnoverRate_By_ProductCategory
+[2024-06-03T18:38:09.124+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=6832) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-06-03T18:38:09.125+0000] {standard_task_runner.py:63} INFO - Started process 6837 to run task
+[2024-06-03T18:38:09.257+0000] {task_command.py:426} INFO - Running <TaskInstance: dimensional_query_dag.TurnoverRate_By_ProductCategory manual__2024-06-03T18:37:53.729123+00:00 [running]> on host 84cc6ba0e639
+[2024-06-03T18:38:09.461+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='dimensional_query_dag' AIRFLOW_CTX_TASK_ID='TurnoverRate_By_ProductCategory' AIRFLOW_CTX_EXECUTION_DATE='2024-06-03T18:37:53.729123+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-03T18:37:53.729123+00:00'
+[2024-06-03T18:38:09.463+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-03T18:38:09.516+0000] {base.py:84} INFO - Using connection ID 'mini_motors_warehouse' for task execution.
+[2024-06-03T18:38:09.606+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-06-03T18:38:09.674+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-06-03T18:38:09.676+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-03T18:38:09.709+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=dimensional_query_dag, task_id=TurnoverRate_By_ProductCategory, run_id=manual__2024-06-03T18:37:53.729123+00:00, execution_date=20240603T183753, start_date=20240603T183809, end_date=20240603T183809
+[2024-06-03T18:38:10.163+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-03T18:38:10.215+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-03T18:38:10.220+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

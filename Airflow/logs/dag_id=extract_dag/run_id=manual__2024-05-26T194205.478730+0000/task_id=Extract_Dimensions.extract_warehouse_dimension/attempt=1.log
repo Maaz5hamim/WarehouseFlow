@@ -1,0 +1,28 @@
+[2024-05-26T19:43:03.258+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-26T19:43:03.338+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_warehouse_dimension manual__2024-05-26T19:42:05.478730+00:00 [queued]>
+[2024-05-26T19:43:03.367+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_warehouse_dimension manual__2024-05-26T19:42:05.478730+00:00 [queued]>
+[2024-05-26T19:43:03.368+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-26T19:43:03.447+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Extract_Dimensions.extract_warehouse_dimension> on 2024-05-26 19:42:05.478730+00:00
+[2024-05-26T19:43:03.455+0000] {standard_task_runner.py:63} INFO - Started process 2655 to run task
+[2024-05-26T19:43:03.461+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'Extract_Dimensions.extract_warehouse_dimension', 'manual__2024-05-26T19:42:05.478730+00:00', '--job-id', '89', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpwshece9u']
+[2024-05-26T19:43:03.464+0000] {standard_task_runner.py:91} INFO - Job 89: Subtask Extract_Dimensions.extract_warehouse_dimension
+[2024-05-26T19:43:03.596+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.Extract_Dimensions.extract_warehouse_dimension manual__2024-05-26T19:42:05.478730+00:00 [running]> on host 2ae322230659
+[2024-05-26T19:43:03.820+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='Extract_Dimensions.extract_warehouse_dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-26T19:42:05.478730+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-26T19:42:05.478730+00:00'
+[2024-05-26T19:43:03.822+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-26T19:43:04.024+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO staging_area.Warehouse (warehouse_id, address, city, province, country, capacity)
+SELECT w.warehouse_id, w.address, c.city_name as city, pr.province_name as province, co.country_name as country, w.capacity
+FROM Warehouse w JOIN Cities c ON w.city_id = c.city_id JOIN Provinces pr ON c.province_id = pr.province_id JOIN Countries co ON pr.country_id = co.country_id;
+[2024-05-26T19:43:04.048+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T19:43:04.254+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-26T19:43:04.279+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO staging_area.Warehouse (warehouse_id, address, city, province, country, capacity)
+SELECT w.warehouse_id, w.address, c.city_name as city, pr.province_name as province, co.country_name as country, w.capacity
+FROM Warehouse w JOIN Cities c ON w.city_id = c.city_id JOIN Provinces pr ON c.province_id = pr.province_id JOIN Countries co ON pr.country_id = co.country_id;, parameters: None
+[2024-05-26T19:43:04.298+0000] {sql.py:479} INFO - Rows affected: 9
+[2024-05-26T19:43:04.309+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-26T19:43:04.343+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=Extract_Dimensions.extract_warehouse_dimension, run_id=manual__2024-05-26T19:42:05.478730+00:00, execution_date=20240526T194205, start_date=20240526T194303, end_date=20240526T194304
+[2024-05-26T19:43:04.480+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-26T19:43:04.530+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-26T19:43:04.587+0000] {taskinstance.py:3498} INFO - 2 downstream tasks scheduled from follow-on schedule check
+[2024-05-26T19:43:04.612+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

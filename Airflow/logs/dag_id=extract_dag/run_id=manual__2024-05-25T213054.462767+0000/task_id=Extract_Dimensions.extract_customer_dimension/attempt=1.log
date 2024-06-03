@@ -1,0 +1,28 @@
+[2024-05-25T21:31:30.898+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-25T21:31:30.992+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_customer_dimension manual__2024-05-25T21:30:54.462767+00:00 [queued]>
+[2024-05-25T21:31:31.039+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.Extract_Dimensions.extract_customer_dimension manual__2024-05-25T21:30:54.462767+00:00 [queued]>
+[2024-05-25T21:31:31.040+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-25T21:31:31.145+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Extract_Dimensions.extract_customer_dimension> on 2024-05-25 21:30:54.462767+00:00
+[2024-05-25T21:31:31.152+0000] {standard_task_runner.py:63} INFO - Started process 381 to run task
+[2024-05-25T21:31:31.157+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'Extract_Dimensions.extract_customer_dimension', 'manual__2024-05-25T21:30:54.462767+00:00', '--job-id', '56', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpnrwqoc8t']
+[2024-05-25T21:31:31.162+0000] {standard_task_runner.py:91} INFO - Job 56: Subtask Extract_Dimensions.extract_customer_dimension
+[2024-05-25T21:31:31.305+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.Extract_Dimensions.extract_customer_dimension manual__2024-05-25T21:30:54.462767+00:00 [running]> on host 2ae322230659
+[2024-05-25T21:31:31.512+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='Extract_Dimensions.extract_customer_dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-25T21:30:54.462767+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-25T21:30:54.462767+00:00'
+[2024-05-25T21:31:31.513+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-25T21:31:31.706+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO staging_area.Customer (customer_id, customer_name, company_name, phone, email, city, province, country, address)
+SELECT c.customer_id, c.customer_name, c.company_name, c.phone, c.email, ci.city_name as city, pr.province_name as province, co.country_name as country, c.address
+FROM Customer c JOIN Cities ci ON c.city_id = ci.city_id JOIN Provinces pr ON ci.province_id = pr.province_id JOIN Countries co ON pr.country_id = co.country_id;
+[2024-05-25T21:31:31.731+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-25T21:31:31.943+0000] {base.py:84} INFO - Using connection ID 'mini_motors_production' for task execution.
+[2024-05-25T21:31:31.964+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO staging_area.Customer (customer_id, customer_name, company_name, phone, email, city, province, country, address)
+SELECT c.customer_id, c.customer_name, c.company_name, c.phone, c.email, ci.city_name as city, pr.province_name as province, co.country_name as country, c.address
+FROM Customer c JOIN Cities ci ON c.city_id = ci.city_id JOIN Provinces pr ON ci.province_id = pr.province_id JOIN Countries co ON pr.country_id = co.country_id;, parameters: None
+[2024-05-25T21:31:31.986+0000] {sql.py:479} INFO - Rows affected: 0
+[2024-05-25T21:31:31.989+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-25T21:31:32.019+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=Extract_Dimensions.extract_customer_dimension, run_id=manual__2024-05-25T21:30:54.462767+00:00, execution_date=20240525T213054, start_date=20240525T213130, end_date=20240525T213132
+[2024-05-25T21:31:32.138+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-25T21:31:32.176+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-25T21:31:32.213+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-25T21:31:32.217+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

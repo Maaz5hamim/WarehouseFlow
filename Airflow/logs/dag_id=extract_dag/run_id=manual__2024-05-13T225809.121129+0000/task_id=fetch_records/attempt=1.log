@@ -1,0 +1,41 @@
+[2024-05-13T22:58:31.671+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-13T22:58:31.761+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.fetch_records manual__2024-05-13T22:58:09.121129+00:00 [queued]>
+[2024-05-13T22:58:31.789+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.fetch_records manual__2024-05-13T22:58:09.121129+00:00 [queued]>
+[2024-05-13T22:58:31.792+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-13T22:58:31.850+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): fetch_records> on 2024-05-13 22:58:09.121129+00:00
+[2024-05-13T22:58:31.855+0000] {standard_task_runner.py:63} INFO - Started process 86 to run task
+[2024-05-13T22:58:31.860+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'fetch_records', 'manual__2024-05-13T22:58:09.121129+00:00', '--job-id', '18', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpaeotu6eu']
+[2024-05-13T22:58:31.865+0000] {standard_task_runner.py:91} INFO - Job 18: Subtask fetch_records
+[2024-05-13T22:58:32.048+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.fetch_records manual__2024-05-13T22:58:09.121129+00:00 [running]> on host 2f45394e2013
+[2024-05-13T22:58:32.260+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='fetch_records' AIRFLOW_CTX_EXECUTION_DATE='2024-05-13T22:58:09.121129+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-13T22:58:09.121129+00:00'
+[2024-05-13T22:58:32.261+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-13T22:58:32.516+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-13T22:58:32.817+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-13T22:58:32.818+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/extract_dag.py", line 12, in fetch_records
+    cursor.execute(sql)
+  File "/home/airflow/.local/lib/python3.12/site-packages/MySQLdb/cursors.py", line 178, in execute
+    assert isinstance(mogrified_query, (bytes, bytearray))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+[2024-05-13T22:58:32.839+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=extract_dag, task_id=fetch_records, run_id=manual__2024-05-13T22:58:09.121129+00:00, execution_date=20240513T225809, start_date=20240513T225831, end_date=20240513T225832
+[2024-05-13T22:58:32.887+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 18 for task fetch_records (; 86)
+[2024-05-13T22:58:32.924+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-05-13T22:58:32.965+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-13T22:58:32.967+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,23 @@
+[2024-05-13T23:24:36.383+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-13T23:24:36.445+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: extract_dag.extract_product manual__2024-05-13T23:24:22.831201+00:00 [queued]>
+[2024-05-13T23:24:36.474+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: extract_dag.extract_product manual__2024-05-13T23:24:22.831201+00:00 [queued]>
+[2024-05-13T23:24:36.475+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-13T23:24:36.546+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): extract_product> on 2024-05-13 23:24:22.831201+00:00
+[2024-05-13T23:24:36.551+0000] {standard_task_runner.py:63} INFO - Started process 206 to run task
+[2024-05-13T23:24:36.556+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'extract_dag', 'extract_product', 'manual__2024-05-13T23:24:22.831201+00:00', '--job-id', '22', '--raw', '--subdir', 'DAGS_FOLDER/extract_dag.py', '--cfg-path', '/tmp/tmpz564jreq']
+[2024-05-13T23:24:36.559+0000] {standard_task_runner.py:91} INFO - Job 22: Subtask extract_product
+[2024-05-13T23:24:37.682+0000] {task_command.py:426} INFO - Running <TaskInstance: extract_dag.extract_product manual__2024-05-13T23:24:22.831201+00:00 [running]> on host 2f45394e2013
+[2024-05-13T23:24:37.913+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='extract_dag' AIRFLOW_CTX_TASK_ID='extract_product' AIRFLOW_CTX_EXECUTION_DATE='2024-05-13T23:24:22.831201+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-13T23:24:22.831201+00:00'
+[2024-05-13T23:24:37.915+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-13T23:24:38.157+0000] {sql.py:276} INFO - Executing: INSERT INTO staging_area.Product (product_id, product_name, product_description, category_name, category_description, brand_name)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);
+[2024-05-13T23:24:38.181+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-13T23:24:38.399+0000] {base.py:84} INFO - Using connection ID 'mini_motors' for task execution.
+[2024-05-13T23:24:38.421+0000] {sql.py:470} INFO - Running statement: INSERT INTO staging_area.Product (product_id, product_name, product_description, category_name, category_description, brand_name)
+SELECT p.product_id, p.product_name, p.product_description, c.category_name, c.category_description, b.brand_name FROM Product p JOIN Product_Category c using(category_id) JOIN Brand b using(brand_id);, parameters: None
+[2024-05-13T23:24:38.437+0000] {sql.py:479} INFO - Rows affected: 89
+[2024-05-13T23:24:38.449+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-13T23:24:38.478+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=extract_dag, task_id=extract_product, run_id=manual__2024-05-13T23:24:22.831201+00:00, execution_date=20240513T232422, start_date=20240513T232436, end_date=20240513T232438
+[2024-05-13T23:24:38.576+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-13T23:24:38.623+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-13T23:24:38.627+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

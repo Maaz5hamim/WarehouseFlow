@@ -1,0 +1,28 @@
+[2024-05-27T09:40:04.892+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T09:40:04.965+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.load_TransactionType_Dimension manual__2024-05-27T09:39:15.730500+00:00 [queued]>
+[2024-05-27T09:40:04.992+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.load_TransactionType_Dimension manual__2024-05-27T09:39:15.730500+00:00 [queued]>
+[2024-05-27T09:40:04.993+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T09:40:05.048+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Load_Dimensions.load_TransactionType_Dimension> on 2024-05-27 09:39:15.730500+00:00
+[2024-05-27T09:40:05.058+0000] {standard_task_runner.py:63} INFO - Started process 1720 to run task
+[2024-05-27T09:40:05.061+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'load_dag', 'Load_Dimensions.load_TransactionType_Dimension', 'manual__2024-05-27T09:39:15.730500+00:00', '--job-id', '189', '--raw', '--subdir', 'DAGS_FOLDER/load_dag.py', '--cfg-path', '/tmp/tmpqpd9owf8']
+[2024-05-27T09:40:05.064+0000] {standard_task_runner.py:91} INFO - Job 189: Subtask Load_Dimensions.load_TransactionType_Dimension
+[2024-05-27T09:40:05.203+0000] {task_command.py:426} INFO - Running <TaskInstance: load_dag.Load_Dimensions.load_TransactionType_Dimension manual__2024-05-27T09:39:15.730500+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T09:40:05.703+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='load_dag' AIRFLOW_CTX_TASK_ID='Load_Dimensions.load_TransactionType_Dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T09:39:15.730500+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T09:39:15.730500+00:00'
+[2024-05-27T09:40:05.705+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T09:40:05.742+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO data_warehouse.Transaction_Type (type_id, type_description)
+SELECT distinct *
+FROM Transaction_Type;
+[2024-05-27T09:40:05.765+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:40:05.903+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:40:05.922+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO data_warehouse.Transaction_Type (type_id, type_description)
+SELECT distinct *
+FROM Transaction_Type;, parameters: None
+[2024-05-27T09:40:05.924+0000] {sql.py:479} INFO - Rows affected: 2
+[2024-05-27T09:40:05.930+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T09:40:05.951+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=load_dag, task_id=Load_Dimensions.load_TransactionType_Dimension, run_id=manual__2024-05-27T09:39:15.730500+00:00, execution_date=20240527T093915, start_date=20240527T094004, end_date=20240527T094005
+[2024-05-27T09:40:06.050+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-27T09:40:06.078+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-27T09:40:06.107+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T09:40:06.121+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,40 @@
+[2024-05-27T09:29:19.510+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T09:29:19.700+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Warehouse_Dimension manual__2024-05-27T09:28:08.045683+00:00 [queued]>
+[2024-05-27T09:29:19.771+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: load_dag.Load_Dimensions.Load_Warehouse_Dimension manual__2024-05-27T09:28:08.045683+00:00 [queued]>
+[2024-05-27T09:29:19.775+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T09:29:19.897+0000] {taskinstance.py:2330} INFO - Executing <Task(MySqlOperator): Load_Dimensions.Load_Warehouse_Dimension> on 2024-05-27 09:28:08.045683+00:00
+[2024-05-27T09:29:19.907+0000] {standard_task_runner.py:63} INFO - Started process 1537 to run task
+[2024-05-27T09:29:19.913+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'load_dag', 'Load_Dimensions.Load_Warehouse_Dimension', 'manual__2024-05-27T09:28:08.045683+00:00', '--job-id', '183', '--raw', '--subdir', 'DAGS_FOLDER/load_dag.py', '--cfg-path', '/tmp/tmpxf1m93tk']
+[2024-05-27T09:29:19.917+0000] {standard_task_runner.py:91} INFO - Job 183: Subtask Load_Dimensions.Load_Warehouse_Dimension
+[2024-05-27T09:29:20.125+0000] {task_command.py:426} INFO - Running <TaskInstance: load_dag.Load_Dimensions.Load_Warehouse_Dimension manual__2024-05-27T09:28:08.045683+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T09:29:20.810+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='load_dag' AIRFLOW_CTX_TASK_ID='Load_Dimensions.Load_Warehouse_Dimension' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T09:28:08.045683+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T09:28:08.045683+00:00'
+[2024-05-27T09:29:20.811+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T09:29:20.856+0000] {sql.py:276} INFO - Executing: 
+INSERT IGNORE INTO data_warehouse.Warehouse (wh_id, wh_address, wh_city, wh_province, wh_country, wh_capacity)
+SELECT 
+    warehouse_id, 
+    address, 
+    city, 
+    province, 
+    country, 
+    capacity
+FROM Warehouse;
+[2024-05-27T09:29:20.899+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:29:21.351+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T09:29:21.403+0000] {sql.py:470} INFO - Running statement: 
+INSERT IGNORE INTO data_warehouse.Warehouse (wh_id, wh_address, wh_city, wh_province, wh_country, wh_capacity)
+SELECT 
+    warehouse_id, 
+    address, 
+    city, 
+    province, 
+    country, 
+    capacity
+FROM Warehouse;, parameters: None
+[2024-05-27T09:29:21.411+0000] {sql.py:479} INFO - Rows affected: 9
+[2024-05-27T09:29:21.423+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T09:29:21.457+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=load_dag, task_id=Load_Dimensions.Load_Warehouse_Dimension, run_id=manual__2024-05-27T09:28:08.045683+00:00, execution_date=20240527T092808, start_date=20240527T092919, end_date=20240527T092921
+[2024-05-27T09:29:21.576+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-27T09:29:21.648+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class MySqlOperator. (Please use `airflow.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2024-05-27T09:29:21.691+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T09:29:21.695+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

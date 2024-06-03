@@ -1,0 +1,158 @@
+[2024-05-27T07:58:17.894+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-05-27T07:58:17.987+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:57:52.711739+00:00 [queued]>
+[2024-05-27T07:58:18.016+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:57:52.711739+00:00 [queued]>
+[2024-05-27T07:58:18.017+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-05-27T07:58:18.093+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): generate_profiles> on 2024-05-27 07:57:52.711739+00:00
+[2024-05-27T07:58:18.385+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'transform_dag', 'generate_profiles', 'manual__2024-05-27T07:57:52.711739+00:00', '--job-id', '173', '--raw', '--subdir', 'DAGS_FOLDER/transformation_dag.py', '--cfg-path', '/tmp/tmp2aztod69']
+[2024-05-27T07:58:18.471+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=336) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-05-27T07:58:18.513+0000] {standard_task_runner.py:91} INFO - Job 173: Subtask generate_profiles
+[2024-05-27T07:58:18.514+0000] {standard_task_runner.py:63} INFO - Started process 345 to run task
+[2024-05-27T07:58:19.716+0000] {task_command.py:426} INFO - Running <TaskInstance: transform_dag.generate_profiles manual__2024-05-27T07:57:52.711739+00:00 [running]> on host 3368e0bd61b0
+[2024-05-27T07:58:22.044+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='transform_dag' AIRFLOW_CTX_TASK_ID='generate_profiles' AIRFLOW_CTX_EXECUTION_DATE='2024-05-27T07:57:52.711739+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-05-27T07:57:52.711739+00:00'
+[2024-05-27T07:58:22.073+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-05-27T07:58:22.346+0000] {base.py:84} INFO - Using connection ID 'mini_motors_staging' for task execution.
+[2024-05-27T07:58:22.710+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py:243 UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+[2024-05-27T07:58:23.182+0000] {logging_mixin.py:188} INFO - transaction_id                  int64
+date                   datetime64[ns]
+supplier_id                    object
+product_id                     object
+customer_id                    object
+warehouse_id                   object
+quantity                      float64
+cost                          float64
+delay                         float64
+freight_charges               float64
+db_id                          object
+transaction_type_id            object
+transaction_type               object
+total_cost                    float64
+dtype: object
+[2024-05-27T07:58:24.881+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/5 [00:00<?, ?it/s]
+[2024-05-27T07:58:26.656+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   0%|          | 0/19 [00:01<?, ?it/s, Describe variable:date]
+[2024-05-27T07:58:26.663+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   5%|5         | 1/19 [00:01<00:32,  1.78s/it, Describe variable:date]
+[2024-05-27T07:58:26.813+0000] {logging_mixin.py:188} WARNING - Summarize dataset:   5%|5         | 1/19 [00:01<00:32,  1.78s/it, Describe variable:supplier_id]
+[2024-05-27T07:58:26.822+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  11%|#         | 2/19 [00:01<00:14,  1.21it/s, Describe variable:supplier_id]
+[2024-05-27T07:58:26.875+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  11%|#         | 2/19 [00:01<00:14,  1.21it/s, Describe variable:transaction_id]
+[2024-05-27T07:58:26.931+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  16%|#5        | 3/19 [00:02<00:07,  2.00it/s, Describe variable:transaction_id]
+[2024-05-27T07:58:26.947+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  16%|#5        | 3/19 [00:02<00:07,  2.00it/s, Describe variable:customer_id]   
+[2024-05-27T07:58:27.041+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  21%|##1       | 4/19 [00:02<00:07,  2.00it/s, Describe variable:product_id] 
+[2024-05-27T07:58:27.052+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  26%|##6       | 5/19 [00:02<00:03,  3.99it/s, Describe variable:product_id]
+[2024-05-27T07:58:27.104+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  26%|##6       | 5/19 [00:02<00:03,  3.99it/s, Describe variable:warehouse_id]
+[2024-05-27T07:58:27.126+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  32%|###1      | 6/19 [00:02<00:03,  3.99it/s, Describe variable:quantity]    
+[2024-05-27T07:58:27.221+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  37%|###6      | 7/19 [00:02<00:03,  3.99it/s, Describe variable:cost]    
+[2024-05-27T07:58:27.231+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  42%|####2     | 8/19 [00:02<00:01,  6.85it/s, Describe variable:cost]
+[2024-05-27T07:58:27.244+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  42%|####2     | 8/19 [00:02<00:01,  6.85it/s, Describe variable:delay]
+[2024-05-27T07:58:27.320+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  47%|####7     | 9/19 [00:02<00:01,  6.85it/s, Describe variable:transaction_type_id]
+[2024-05-27T07:58:27.340+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  53%|#####2    | 10/19 [00:02<00:01,  8.72it/s, Describe variable:transaction_type_id]
+[2024-05-27T07:58:27.351+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  53%|#####2    | 10/19 [00:02<00:01,  8.72it/s, Describe variable:freight_charges]    
+[2024-05-27T07:58:27.410+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  58%|#####7    | 11/19 [00:02<00:00,  8.72it/s, Describe variable:db_id]          
+[2024-05-27T07:58:27.418+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  63%|######3   | 12/19 [00:02<00:00,  8.72it/s, Describe variable:transaction_type]
+[2024-05-27T07:58:27.466+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  68%|######8   | 13/19 [00:02<00:00,  8.72it/s, Describe variable:total_cost]      
+[2024-05-27T07:58:27.467+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  74%|#######3  | 14/19 [00:02<00:00, 13.58it/s, Describe variable:total_cost]
+[2024-05-27T07:58:27.476+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  74%|#######3  | 14/19 [00:02<00:00, 13.58it/s, Get variable types]          
+[2024-05-27T07:58:27.477+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 15/20 [00:02<00:00, 13.58it/s, Get dataframe statistics]
+[2024-05-27T07:58:27.492+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  76%|#######6  | 16/21 [00:02<00:00, 13.58it/s, Calculate auto correlation]
+[2024-05-27T07:58:27.539+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/correlations.py:66 UserWarning: There was an attempt to calculate the auto correlation, but this failed.
+To hide this warning, disable the calculation
+(using `df.profile_report(correlations={"auto": {"calculate": False}})`
+If this is problematic for your use case, please report this as an issue:
+https://github.com/ydataai/ydata-profiling/issues
+(include the error message: 'Function <code object pandas_auto_compute at 0x5622848ca990, file "/home/airflow/.local/lib/python3.12/site-packages/ydata_profiling/model/pandas/correlations_pandas.py", line 164>')
+[2024-05-27T07:58:27.543+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  81%|########  | 17/21 [00:02<00:00, 13.58it/s, Get scatter matrix]        
+[2024-05-27T07:58:27.545+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  30%|##9       | 17/57 [00:02<00:02, 13.58it/s, scatter transaction_id, transaction_id]
+[2024-05-27T07:58:29.256+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  32%|###1      | 18/57 [00:04<00:08,  4.38it/s, scatter transaction_id, transaction_id]
+[2024-05-27T07:58:29.258+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  32%|###1      | 18/57 [00:04<00:08,  4.38it/s, scatter quantity, transaction_id]      
+[2024-05-27T07:58:29.724+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  33%|###3      | 19/57 [00:04<00:08,  4.38it/s, scatter cost, transaction_id]    
+[2024-05-27T07:58:30.146+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  35%|###5      | 20/57 [00:05<00:10,  3.60it/s, scatter cost, transaction_id]
+[2024-05-27T07:58:30.148+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  35%|###5      | 20/57 [00:05<00:10,  3.60it/s, scatter delay, transaction_id]
+[2024-05-27T07:58:30.593+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  37%|###6      | 21/57 [00:05<00:10,  3.60it/s, scatter freight_charges, transaction_id]
+[2024-05-27T07:58:31.004+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  39%|###8      | 22/57 [00:06<00:11,  3.17it/s, scatter freight_charges, transaction_id]
+[2024-05-27T07:58:31.005+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  39%|###8      | 22/57 [00:06<00:11,  3.17it/s, scatter total_cost, transaction_id]     
+[2024-05-27T07:58:31.374+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  40%|####      | 23/57 [00:06<00:10,  3.09it/s, scatter total_cost, transaction_id]
+[2024-05-27T07:58:31.375+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  40%|####      | 23/57 [00:06<00:10,  3.09it/s, scatter transaction_id, quantity]  
+[2024-05-27T07:58:31.708+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  42%|####2     | 24/57 [00:06<00:10,  3.08it/s, scatter transaction_id, quantity]
+[2024-05-27T07:58:31.709+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  42%|####2     | 24/57 [00:06<00:10,  3.08it/s, scatter quantity, quantity]      
+[2024-05-27T07:58:32.040+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  44%|####3     | 25/57 [00:07<00:10,  3.06it/s, scatter quantity, quantity]
+[2024-05-27T07:58:32.041+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  44%|####3     | 25/57 [00:07<00:10,  3.06it/s, scatter cost, quantity]    
+[2024-05-27T07:58:32.612+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  46%|####5     | 26/57 [00:07<00:11,  2.62it/s, scatter cost, quantity]
+[2024-05-27T07:58:32.613+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  46%|####5     | 26/57 [00:07<00:11,  2.62it/s, scatter delay, quantity]
+[2024-05-27T07:58:33.280+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  47%|####7     | 27/57 [00:08<00:13,  2.22it/s, scatter delay, quantity]
+[2024-05-27T07:58:33.282+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  47%|####7     | 27/57 [00:08<00:13,  2.22it/s, scatter freight_charges, quantity]
+[2024-05-27T07:58:34.039+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  49%|####9     | 28/57 [00:09<00:15,  1.89it/s, scatter freight_charges, quantity]
+[2024-05-27T07:58:34.041+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  49%|####9     | 28/57 [00:09<00:15,  1.89it/s, scatter total_cost, quantity]     
+[2024-05-27T07:58:34.487+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  51%|#####     | 29/57 [00:09<00:14,  1.97it/s, scatter total_cost, quantity]
+[2024-05-27T07:58:34.488+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  51%|#####     | 29/57 [00:09<00:14,  1.97it/s, scatter transaction_id, cost]
+[2024-05-27T07:58:34.992+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  53%|#####2    | 30/57 [00:10<00:13,  1.97it/s, scatter transaction_id, cost]
+[2024-05-27T07:58:34.994+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  53%|#####2    | 30/57 [00:10<00:13,  1.97it/s, scatter quantity, cost]      
+[2024-05-27T07:58:35.438+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  54%|#####4    | 31/57 [00:10<00:12,  2.04it/s, scatter quantity, cost]
+[2024-05-27T07:58:35.440+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  54%|#####4    | 31/57 [00:10<00:12,  2.04it/s, scatter cost, cost]    
+[2024-05-27T07:58:36.163+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  56%|#####6    | 32/57 [00:11<00:13,  1.79it/s, scatter cost, cost]
+[2024-05-27T07:58:36.165+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  56%|#####6    | 32/57 [00:11<00:13,  1.79it/s, scatter delay, cost]
+[2024-05-27T07:58:40.972+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  58%|#####7    | 33/57 [00:16<00:43,  1.80s/it, scatter delay, cost]
+[2024-05-27T07:58:40.973+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  58%|#####7    | 33/57 [00:16<00:43,  1.80s/it, scatter freight_charges, cost]
+[2024-05-27T07:58:41.385+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  60%|#####9    | 34/57 [00:16<00:31,  1.39s/it, scatter freight_charges, cost]
+[2024-05-27T07:58:41.386+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  60%|#####9    | 34/57 [00:16<00:31,  1.39s/it, scatter total_cost, cost]     
+[2024-05-27T07:58:41.768+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  61%|######1   | 35/57 [00:16<00:24,  1.09s/it, scatter total_cost, cost]
+[2024-05-27T07:58:41.769+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  61%|######1   | 35/57 [00:16<00:24,  1.09s/it, scatter transaction_id, delay]
+[2024-05-27T07:58:42.096+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  63%|######3   | 36/57 [00:17<00:18,  1.16it/s, scatter transaction_id, delay]
+[2024-05-27T07:58:42.098+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  63%|######3   | 36/57 [00:17<00:18,  1.16it/s, scatter quantity, delay]      
+[2024-05-27T07:58:42.512+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  65%|######4   | 37/57 [00:17<00:14,  1.37it/s, scatter quantity, delay]
+[2024-05-27T07:58:42.515+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  65%|######4   | 37/57 [00:17<00:14,  1.37it/s, scatter cost, delay]    
+[2024-05-27T07:58:43.133+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 38/57 [00:18<00:13,  1.43it/s, scatter cost, delay]
+[2024-05-27T07:58:43.134+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  67%|######6   | 38/57 [00:18<00:13,  1.43it/s, scatter delay, delay]
+[2024-05-27T07:58:43.454+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  68%|######8   | 39/57 [00:18<00:10,  1.71it/s, scatter delay, delay]
+[2024-05-27T07:58:43.455+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  68%|######8   | 39/57 [00:18<00:10,  1.71it/s, scatter freight_charges, delay]
+[2024-05-27T07:58:43.858+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  70%|#######   | 40/57 [00:18<00:09,  1.88it/s, scatter freight_charges, delay]
+[2024-05-27T07:58:43.859+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  70%|#######   | 40/57 [00:18<00:09,  1.88it/s, scatter total_cost, delay]     
+[2024-05-27T07:58:44.187+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  72%|#######1  | 41/57 [00:19<00:07,  2.12it/s, scatter total_cost, delay]
+[2024-05-27T07:58:44.189+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  72%|#######1  | 41/57 [00:19<00:07,  2.12it/s, scatter transaction_id, freight_charges]
+[2024-05-27T07:58:44.685+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  74%|#######3  | 42/57 [00:19<00:07,  2.09it/s, scatter transaction_id, freight_charges]
+[2024-05-27T07:58:44.686+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  74%|#######3  | 42/57 [00:19<00:07,  2.09it/s, scatter quantity, freight_charges]      
+[2024-05-27T07:58:45.258+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 43/57 [00:20<00:07,  1.97it/s, scatter quantity, freight_charges]
+[2024-05-27T07:58:45.259+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  75%|#######5  | 43/57 [00:20<00:07,  1.97it/s, scatter cost, freight_charges]    
+[2024-05-27T07:58:45.717+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  77%|#######7  | 44/57 [00:20<00:06,  2.03it/s, scatter cost, freight_charges]
+[2024-05-27T07:58:45.718+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  77%|#######7  | 44/57 [00:20<00:06,  2.03it/s, scatter delay, freight_charges]
+[2024-05-27T07:58:46.270+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  79%|#######8  | 45/57 [00:21<00:06,  1.96it/s, scatter delay, freight_charges]
+[2024-05-27T07:58:46.272+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  79%|#######8  | 45/57 [00:21<00:06,  1.96it/s, scatter freight_charges, freight_charges]
+[2024-05-27T07:58:46.688+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  81%|########  | 46/57 [00:21<00:05,  2.07it/s, scatter freight_charges, freight_charges]
+[2024-05-27T07:58:46.689+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  81%|########  | 46/57 [00:21<00:05,  2.07it/s, scatter total_cost, freight_charges]     
+[2024-05-27T07:58:47.133+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  82%|########2 | 47/57 [00:22<00:04,  2.12it/s, scatter total_cost, freight_charges]
+[2024-05-27T07:58:47.139+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  82%|########2 | 47/57 [00:22<00:04,  2.12it/s, scatter transaction_id, total_cost] 
+[2024-05-27T07:58:47.652+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  84%|########4 | 48/57 [00:22<00:04,  2.06it/s, scatter transaction_id, total_cost]
+[2024-05-27T07:58:47.654+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  84%|########4 | 48/57 [00:22<00:04,  2.06it/s, scatter quantity, total_cost]      
+[2024-05-27T07:58:48.037+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  86%|########5 | 49/57 [00:23<00:03,  2.19it/s, scatter quantity, total_cost]
+[2024-05-27T07:58:48.038+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  86%|########5 | 49/57 [00:23<00:03,  2.19it/s, scatter cost, total_cost]    
+[2024-05-27T07:58:48.527+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  88%|########7 | 50/57 [00:23<00:03,  2.15it/s, scatter cost, total_cost]
+[2024-05-27T07:58:48.528+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  88%|########7 | 50/57 [00:23<00:03,  2.15it/s, scatter delay, total_cost]
+[2024-05-27T07:58:49.030+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  89%|########9 | 51/57 [00:24<00:02,  2.10it/s, scatter delay, total_cost]
+[2024-05-27T07:58:49.034+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  89%|########9 | 51/57 [00:24<00:02,  2.10it/s, scatter freight_charges, total_cost]
+[2024-05-27T07:58:49.909+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  91%|#########1| 52/57 [00:25<00:02,  1.67it/s, scatter freight_charges, total_cost]
+[2024-05-27T07:58:49.912+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  91%|#########1| 52/57 [00:25<00:02,  1.67it/s, scatter total_cost, total_cost]     
+[2024-05-27T07:58:50.451+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  93%|#########2| 53/57 [00:25<00:02,  1.72it/s, scatter total_cost, total_cost]
+[2024-05-27T07:58:50.454+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  88%|########8 | 53/60 [00:25<00:04,  1.72it/s, Missing diagram bar]           
+[2024-05-27T07:58:51.865+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  90%|######### | 54/60 [00:26<00:04,  1.20it/s, Missing diagram bar]
+[2024-05-27T07:58:51.869+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  90%|######### | 54/60 [00:26<00:04,  1.20it/s, Missing diagram matrix]
+[2024-05-27T07:58:53.955+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  92%|#########1| 55/60 [00:29<00:06,  1.21s/it, Missing diagram matrix]
+[2024-05-27T07:58:53.957+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  92%|#########1| 55/60 [00:29<00:06,  1.21s/it, Missing diagram heatmap]
+[2024-05-27T07:58:55.059+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  93%|#########3| 56/60 [00:30<00:04,  1.18s/it, Missing diagram heatmap]
+[2024-05-27T07:58:55.064+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  93%|#########3| 56/60 [00:30<00:04,  1.18s/it, Take sample]            
+[2024-05-27T07:58:55.081+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  95%|#########5| 57/60 [00:30<00:03,  1.18s/it, Detecting duplicates]
+[2024-05-27T07:58:55.185+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  97%|#########6| 58/60 [00:30<00:01,  1.51it/s, Detecting duplicates]
+[2024-05-27T07:58:55.188+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  97%|#########6| 58/60 [00:30<00:01,  1.51it/s, Get alerts]          
+[2024-05-27T07:58:55.194+0000] {logging_mixin.py:188} WARNING - Summarize dataset:  98%|#########8| 59/60 [00:30<00:00,  1.51it/s, Get reproduction details]
+[2024-05-27T07:58:55.200+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 60/60 [00:30<00:00,  1.51it/s, Completed]               
+[2024-05-27T07:58:55.204+0000] {logging_mixin.py:188} WARNING - Summarize dataset: 100%|##########| 60/60 [00:30<00:00,  1.98it/s, Completed]
+[2024-05-27T07:58:55.207+0000] {logging_mixin.py:188} WARNING - Generate report structure:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:59:23.262+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:28<00:00, 28.05s/it]
+[2024-05-27T07:59:23.263+0000] {logging_mixin.py:188} WARNING - Generate report structure: 100%|##########| 1/1 [00:28<00:00, 28.05s/it]
+[2024-05-27T07:59:23.265+0000] {logging_mixin.py:188} WARNING - Render HTML:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:59:27.400+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:04<00:00,  4.13s/it]
+[2024-05-27T07:59:27.402+0000] {logging_mixin.py:188} WARNING - Render HTML: 100%|##########| 1/1 [00:04<00:00,  4.14s/it]
+[2024-05-27T07:59:27.403+0000] {logging_mixin.py:188} WARNING - Export report to file:   0%|          | 0/1 [00:00<?, ?it/s]
+[2024-05-27T07:59:27.460+0000] {logging_mixin.py:188} WARNING - Export report to file: 100%|##########| 1/1 [00:00<00:00, 17.80it/s]
+[2024-05-27T07:59:27.466+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-05-27T07:59:27.468+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-05-27T07:59:27.501+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=transform_dag, task_id=generate_profiles, run_id=manual__2024-05-27T07:57:52.711739+00:00, execution_date=20240527T075752, start_date=20240527T075817, end_date=20240527T075927
+[2024-05-27T07:59:27.624+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-05-27T07:59:27.657+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-05-27T07:59:27.661+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
