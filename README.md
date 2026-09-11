@@ -1,4 +1,4 @@
-# ETL Pipeline — Mini Motors
+# WarehouseFlow — Mini Motors
 
 > End-to-end data pipeline: OLTP production database → staging area → star-schema data warehouse → business intelligence snapshots, orchestrated with Apache Airflow on Docker.
 
